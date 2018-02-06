@@ -1,11 +1,11 @@
 class mycube():
 	def __init__(self):
-		self.front = ['g','w','o','g','b','y','g','r','o']
-		self.back = ['b','b','y','o','g','o','b','b','y']
-		self.left = ['b','o','w','g','y','w','g','r','w']
-		self.right = ['y','r','w','b','w','y','y','g','w']
-		self.up = ['r','o','o','w','r','w','r','b','g']
-		self.down = ['o','g','b','y','o','y','r','r','r']
+		self.front = ['w','b','y','w','b','r','y','g','o']
+		self.back = ['g','y','o','w','g','o','b','b','y']
+		self.left = ['b','r','g','g','y','o','g','b','g']
+		self.right = ['b','y','w','g','w','g','b','o','w']
+		self.up = ['y','b','r','w','r','r','o','o','r']
+		self.down = ['o','y','w','w','o','y','r','r','r']
 
 
 	def rotate(self,face,up,right,down,left,name):
@@ -83,81 +83,108 @@ class mycube():
 		print('down: ',self.down)
 
 	def f(self):
-		self.front,self.up,self.right,self.down,self.left=rotate(self.front,self.up,self.right,self.down,self.left,'f')
-		
+		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
+
 	def f1(self):
-		self.front,self.up,self.right,self.down,self.left=rotate(self.front,self.up,self.right,self.down,self.left,'f')
-		self.front,self.up,self.right,self.down,self.left=rotate(self.front,self.up,self.right,self.down,self.left,'f')
-		self.front,self.up,self.right,self.down,self.left=rotate(self.front,self.up,self.right,self.down,self.left,'f')
-		
-	def f2():
-		self.front,self.up,self.right,self.down,self.left=rotate(self.front,self.up,self.right,self.down,self.left,'f')
-		self.front,self.up,self.right,self.down,self.left=rotate(self.front,self.up,self.right,self.down,self.left,'f')
-		
-	def u():
-		self.up,self.back,self.right,self.front,self.left=rotate(self.up,self.back,self.right,self.front,self.left,'t')
-		
-	def u1():
-		self.up,self.back,self.right,self.front,self.left=rotate(self.up,self.back,self.right,self.front,self.left,'t')
-		self.up,self.back,self.right,self.front,self.left=rotate(self.up,self.back,self.right,self.front,self.left,'t')
-		self.up,self.back,self.right,self.front,self.left=rotate(self.up,self.back,self.right,self.front,self.left,'t')
-		
-	def u2():
-		self.up,self.back,self.right,self.front,self.left=rotate(self.up,self.back,self.right,self.front,self.left,'t')
-		self.up,self.back,self.right,self.front,self.left=rotate(self.up,self.back,self.right,self.front,self.left,'t')
-		
-	def b():
-		self.back,self.up,self.left,self.down,self.right=rotate(self.back,self.up,self.left,self.down,self.right,'b')
-		
-	def b1():
-		self.back,self.up,self.left,self.down,self.right=rotate(self.back,self.up,self.left,self.down,self.right,'b')
-		self.back,self.up,self.left,self.down,self.right=rotate(self.back,self.up,self.left,self.down,self.right,'b')
-		self.back,self.up,self.left,self.down,self.right=rotate(self.back,self.up,self.left,self.down,self.right,'b')
-		
-	def b2():
-		self.back,self.up,self.left,self.down,self.right=rotate(self.back,self.up,self.left,self.down,self.right,'b')
-		self.back,self.up,self.left,self.down,self.right=rotate(self.back,self.up,self.left,self.down,self.right,'b')
-		
+		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
+		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
+		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
+
+	def f2(self):
+		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
+		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
+
+	def u(self):
+		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
+
+	def u1(self):
+		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
+		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
+		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
+
+	def u2(self):
+		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
+		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
+
+	def b(self):
+		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
+
+	def b1(self):
+		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
+		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
+		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
+
+	def b2(self):
+		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
+		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
+
 	def d(self):
-		self.down,self.front,self.right,self.back,self.left=rotate(self.down,self.front,self.right,self.back,self.left,'d')
+		self.down,self.front,self.right,self.back,self.left=self.rotate(self.down,self.front,self.right,self.back,self.left,'d')
 
 	def d1(self):
-		self.down,self.front,self.right,self.back,self.left=rotate(self.down,self.front,self.right,self.back,self.left,'d')
-		self.down,self.front,self.right,self.back,self.left=rotate(self.down,self.front,self.right,self.back,self.left,'d')
-		self.down,self.front,self.right,self.back,self.left=rotate(self.down,self.front,self.right,self.back,self.left,'d')
+		self.down,self.front,self.right,self.back,self.left=self.rotate(self.down,self.front,self.right,self.back,self.left,'d')
+		self.down,self.front,self.right,self.back,self.left=self.rotate(self.down,self.front,self.right,self.back,self.left,'d')
+		self.down,self.front,self.right,self.back,self.left=self.rotate(self.down,self.front,self.right,self.back,self.left,'d')
 
 	def d2(self):
-		self.down,self.front,self.right,self.back,self.left=rotate(self.down,self.front,self.right,self.back,self.left,'d')
-		self.down,self.front,self.right,self.back,self.left=rotate(self.down,self.front,self.right,self.back,self.left,'d')
+		self.down,self.front,self.right,self.back,self.left=self.rotate(self.down,self.front,self.right,self.back,self.left,'d')
+		self.down,self.front,self.right,self.back,self.left=self.rotate(self.down,self.front,self.right,self.back,self.left,'d')
 
 	def l(self):
-		self.left,self.up,self.front,self.down,self.back=rotate(self.left,self.up,self.front,self.down,self.back,'l')
+		self.left,self.up,self.front,self.down,self.back=self.rotate(self.left,self.up,self.front,self.down,self.back,'l')
 
 	def l1(self):
-		self.left,self.up,self.front,self.down,self.back=rotate(self.left,self.up,self.front,self.down,self.back,'l')
-		self.left,self.up,self.front,self.down,self.back=rotate(self.left,self.up,self.front,self.down,self.back,'l')
-		self.left,self.up,self.front,self.down,self.back=rotate(self.left,self.up,self.front,self.down,self.back,'l')
+		self.left,self.up,self.front,self.down,self.back=self.rotate(self.left,self.up,self.front,self.down,self.back,'l')
+		self.left,self.up,self.front,self.down,self.back=self.rotate(self.left,self.up,self.front,self.down,self.back,'l')
+		self.left,self.up,self.front,self.down,self.back=self.rotate(self.left,self.up,self.front,self.down,self.back,'l')
 
 	def l2(self):
-		self.left,self.up,self.front,self.down,self.back=rotate(self.left,self.up,self.front,self.down,self.back,'l')
-		self.left,self.up,self.front,self.down,self.back=rotate(self.left,self.up,self.front,self.down,self.back,'l')
+		self.left,self.up,self.front,self.down,self.back=self.rotate(self.left,self.up,self.front,self.down,self.back,'l')
+		self.left,self.up,self.front,self.down,self.back=self.rotate(self.left,self.up,self.front,self.down,self.back,'l')
 
 	def r(self):
-		self.right,self.up,self.back,self.down,self.front=rotate(self.right,self.up,self.back,self.down,self.front,'r')
+		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 
 	def r1(self):
-		self.right,self.up,self.back,self.down,self.front=rotate(self.right,self.up,self.back,self.down,self.front,'r')
-		self.right,self.up,self.back,self.down,self.front=rotate(self.right,self.up,self.back,self.down,self.front,'r')
-		self.right,self.up,self.back,self.down,self.front=rotate(self.right,self.up,self.back,self.down,self.front,'r')
+		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
+		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
+		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 
 	def r2(self):
-		self.right,self.up,self.back,self.down,self.front=rotate(self.right,self.up,self.back,self.down,self.front,'r')
-		self.right,self.up,self.back,self.down,self.front=rotate(self.right,self.up,self.back,self.down,self.front,'r')
+		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
+		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
+
+	def get_corner(self,no):
+		if no == 1:
+			return self.left[2],self.up[6],self.front[0]
+		elif no == 2:
+			return self.right[0],self.up[8],self.front[2]
+		elif no == 3:
+			return self.right[6],self.down[2],self.front[8]
+		elif no == 4:
+			return self.left[8],self.down[0],self.front[6]
+		elif no == 5:
+			return self.left[0],self.up[0],self.back[2]
+		elif no == 6:
+			return self.right[2],self.up[2],self.back[0]
+		elif no == 7:
+			return self.right[8],self.down[8],self.back[6]
+		elif no == 8:
+			return self.left[6],self.down[6],self.back[8]
+		else:
+			return False,False,False
+
+# class first_phase(mycube):
+	
+
+		
 
 if __name__ == '__main__':
 	cube = mycube()
 	cube.print_cube()
-	cube.r()
-	cube.print_cube()
+	# cube.d()
+	# cube.print_cube()
+	for i in range(1,9):
+		print(cube.get_corner(i))
 	# print(cube.right)
 
