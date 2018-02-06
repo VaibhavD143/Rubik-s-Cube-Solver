@@ -84,11 +84,16 @@ class mycube():
 
 	def f(self):
 		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> 7829c3ef2687ce531149f12f2db6e21105e74207
 	def f1(self):
 		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
 		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
 		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
+<<<<<<< HEAD
 		
 	def f2(self):
 		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
@@ -109,15 +114,45 @@ class mycube():
 	def b(self):
 		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
 		
+=======
+
+	def f2(self):
+		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
+		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
+
+	def u(self):
+		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
+
+	def u1(self):
+		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
+		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
+		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
+
+	def u2(self):
+		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
+		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
+
+	def b(self):
+		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
+
+>>>>>>> 7829c3ef2687ce531149f12f2db6e21105e74207
 	def b1(self):
 		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
 		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
 		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
+<<<<<<< HEAD
 		
 	def b2():
 		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
 		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
 		
+=======
+
+	def b2(self):
+		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
+		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
+
+>>>>>>> 7829c3ef2687ce531149f12f2db6e21105e74207
 	def d(self):
 		self.down,self.front,self.right,self.back,self.left=self.rotate(self.down,self.front,self.right,self.back,self.left,'d')
 
@@ -154,6 +189,7 @@ class mycube():
 		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 
+<<<<<<< HEAD
 	#status return methods
 
 	def get_edge(self,edgeNum):
@@ -188,5 +224,39 @@ if __name__ == '__main__':
 	for i in range(1,13):
 		print i,cube.get_edge(i)
 	#cube.print_cube()
+=======
+	def get_corner(self,no):
+		if no == 1:
+			return self.left[2],self.up[6],self.front[0]
+		elif no == 2:
+			return self.right[0],self.up[8],self.front[2]
+		elif no == 3:
+			return self.right[6],self.down[2],self.front[8]
+		elif no == 4:
+			return self.left[8],self.down[0],self.front[6]
+		elif no == 5:
+			return self.left[0],self.up[0],self.back[2]
+		elif no == 6:
+			return self.right[2],self.up[2],self.back[0]
+		elif no == 7:
+			return self.right[8],self.down[8],self.back[6]
+		elif no == 8:
+			return self.left[6],self.down[6],self.back[8]
+		else:
+			return False,False,False
+
+# class first_phase(mycube):
+	
+
+		
+
+if __name__ == '__main__':
+	cube = mycube()
+	cube.print_cube()
+	# cube.d()
+	# cube.print_cube()
+	for i in range(1,9):
+		print(cube.get_corner(i))
+>>>>>>> 7829c3ef2687ce531149f12f2db6e21105e74207
 	# print(cube.right)
 
