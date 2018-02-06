@@ -1,19 +1,19 @@
 class mycube():
 	def __init__(self):
-		self.front = ['w','w','b','y','b','b','r','b','r']
-		self.back = ['g','y','b','r','g','r','g','g','g']
-		self.left = ['r','w','o','g','y','r','w','b','b']
-		self.right = ['y','y','o','y','w','b','y','w','o']
-		self.up = ['y','g','w','o','r','o','b','g','o']
-		self.down = ['w','o','g','w','o','r','r','o','y']
+		self.front = ['g','w','o','g','b','y','g','r','o']
+		self.back = ['b','b','y','o','g','o','b','b','y']
+		self.left = ['b','o','w','g','y','w','g','r','w']
+		self.right = ['y','r','w','b','w','y','y','g','w']
+		self.up = ['r','o','o','w','r','w','r','b','g']
+		self.down = ['o','g','b','y','o','y','r','r','r']
 
 
 	def rotate(self,face,up,right,down,left,name):
-		r_face = face
-		r_up = up
-		r_right = right
-		r_down = down
-		r_left = left
+		r_face = face[:]
+		r_up = up[:]
+		r_right = right[:]
+		r_down = down[:]
+		r_left = left[:]
 		
 		
 		index = { 'f' : [[6,7,8],[0,3,6],[2,1,0],[8,5,2]],
@@ -29,12 +29,13 @@ class mycube():
 		r_face[1] = face[3]
 		r_face[2] = face[0]
 		r_face[3] = face[7]
-		r_face[4] = front[4]
-		r_face[5] = front[1]
-		r_face[6] = front[8]
-		r_face[7] = front[5]
-		r_face[8] = front[2]
-
+		r_face[4] = face[4]
+		r_face[5] = face[1]
+		r_face[6] = face[8]
+		r_face[7] = face[5]
+		r_face[8] = face[2]
+		# print(face)
+		# print(r_face)
 		#update other four sides
 		if name == 'b':
 			loop = index['b']
@@ -67,8 +68,24 @@ class mycube():
 
 		return r_face,r_up,r_right,r_down,r_left
 
+	def r(self):
+		# print(self.right)
+		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
+		# print(self.right)
+
+	def print_cube(self):
+		print('Current State of cube:')
+		print('front:',self.front)
+		print('Back: ',self.back)
+		print('left: ',self.left)
+		print('right:',self.right)
+		print('up:   ',self.up)
+		print('down: ',self.down)
+
 if __name__ == '__main__':
 	cube = mycube()
+	cube.print_cube()
 	cube.r()
-	print(cube.front)
+	cube.print_cube()
+	# print(cube.right)
 
