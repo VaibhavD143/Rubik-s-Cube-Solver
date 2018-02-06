@@ -172,7 +172,7 @@ class mycube():
 		if(edgeNum==7):
 			return [self.right[7],self.down[5],-1]
 		if(edgeNum==8):
-			return [self.left[7],self.down[3],-1]
+			return [self.right[7],self.down[5],-1]
 		if(edgeNum==9):
 			return [-1,self.up[1],self.back[1]]
 		if(edgeNum==10):
