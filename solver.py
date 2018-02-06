@@ -174,17 +174,58 @@ class mycube():
 		else:
 			return False,False,False
 
-# class first_phase(mycube):
+	def is_bad_edge(self,no):
+		
+		x,y,z = self.get_edges(no)
+		
+		if no == 1 and (y == 'y' or y == 'w' or z == 'o' or z == 'r'):
+			return True
+		elif no == 2 and (z == 'y' or z == 'w' or x == 'o' or x == 'r'):
+			return True
+		elif no == 3 and (y == 'y' or y == 'w' or z == 'o' or z == 'r'):
+			return True
+		elif no == 4 and (z == 'y' or z == 'w' or x == 'o' or x == 'r'):
+			return True
+		elif no == 5 and (x == 'o' or x == 'r' or y == 'w' or y == 'y'):
+			return True
+		elif no == 6 and (x == 'o' or x == 'r' or y == 'w' or y == 'y'):
+			return True
+		elif no == 7 and (x == 'o' or x == 'r' or y == 'y' or y == 'w'):
+			return True
+		elif no == 8 and (x == 'o' or x == 'r' or y == 'y' or y == 'w'):
+			return True
+		elif no == 9 and (z == 'o' or z == 'r' or y == 'y' or y == 'w'):
+			return True
+		elif no == 10 and (z == 'w' or z == 'y' or x == 'o' or x == 'r'):
+			return True
+		elif no == 11 and (z == 'o' or z == 'r' or y == 'y' or y == 'w'):
+			return True
+		elif no == 12 and (z == 'w' or z == 'y' or x == 'o' or x == 'r'):
+			return True
+
+
+
+
+class first_phase(mycube):
 	
+	def get_bad_edges(self):
+		bad_edges = []
+		for i in range(1,13):
+			if self.is_bad_edge(i):
+				bad_edges.append(i)
+		print(bad_edges)
+		return bad_edges
 
 		
 
 if __name__ == '__main__':
 	cube = mycube()
-	cube.print_cube()
+	# cube.print_cube()
 	# cube.d()
 	# cube.print_cube()
-	for i in range(1,9):
-		print(cube.get_corner(i))
+	# for i in range(1,9):
+		# print(cube.get_corner(i))
 	# print(cube.right)
+	f =first_phase()
+	print(f.get_bad_edges())
 
