@@ -1,14 +1,14 @@
 class mycube():
 	global ans
 	def __init__(self):
-		self.front = ['g','w','r','o','b','r','y','g','w']
-		self.back = ['y','g','y','r','g','r','b','y','o']
-		self.left = ['g','b','r','w','y','w','w','y','o']
-		self.right = ['w','w','r','b','w','y','b','y','o']
-		self.up = ['o','r','b','o','r','b','y','g','g']
-		self.down = ['b','o','r','g','o','o','g','b','w']
+		self.front = ['r','w','o','o','b','r','y','b','r']
+		self.back = ['r','g','y','b','g','g','g','g','w']
+		self.left = ['g','b','g','y','w','y','y','y','o']
+		self.right = ['o','w','w','w','y','y','o','w','b']
+		self.up = ['b','o','w','o','r','o','b','b','w']
+		self.down = ['r','r','g','r','o','g','b','r','y']
 
-
+	#to rotate any side of the cube, here self is face itself and up right down left is with respect when front face is facing us
 	def rotate(self,face,up,right,down,left,name):
 		r_face = face[:]
 		r_up = up[:]
@@ -16,7 +16,7 @@ class mycube():
 		r_down = down[:]
 		r_left = left[:]
 		
-		
+		#required rotations of cells for different sides
 		index = { 'f' : [[6,7,8],[0,3,6],[2,1,0],[8,5,2]],
 				  'b' : [[2,1,0],[0,3,6],[6,7,8],[8,5,2]],
 				  'l' :	[[0,3,6],[0,3,6],[0,3,6],[8,5,2]],
@@ -37,6 +37,7 @@ class mycube():
 		r_face[8] = face[2]
 		# print(face)
 		# print(r_face)
+
 		#update other four sides
 		if name == 'b':
 			loop = index['b']
@@ -155,6 +156,7 @@ class mycube():
 		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 
+	#it 'll give current colors of all the corners with respect to X-axis,Y-axis,Z-axis
 	def get_corner(self,no):
 		if no == 1:
 			return self.left[2],self.up[6],self.front[0]
@@ -175,6 +177,7 @@ class mycube():
 		else:
 			return False,False,False
 
+	#it 'll return colors of asked edge in order with X-axis,Y-axis,Z-axis and when any axis doesn't exist then '-1' will be returned
 	def get_edge(self,edgeNum):
 		if(edgeNum==1):
 			return [-1,self.up[7],self.front[1]]
@@ -201,6 +204,8 @@ class mycube():
 		if(edgeNum==12):
 			return [self.left[3],-1,self.back[5]]
 
+
+	#To check wether asked edge is bad or not
 	def is_bad_edge(self,no):
 		
 		x,y,z = self.get_edge(no)
@@ -230,9 +235,16 @@ class mycube():
 		elif no == 12 and (z == 'w' or z == 'y' or x == 'o' or x == 'r'):
 			return True
 
+	#Gives list of all the bad edges currently
 	def get_bad_edges(self):
 		bad_edges = []
 		for i in range(1,13):
 			if self.is_bad_edge(i):
 				bad_edges.append(i)
 		return bad_edges
+
+	def check_ro_corners(self):
+		for i in range(0,9,2):
+			if self.up[i] not in ['r','o'] or self.down[i] not in ['r','o']:
+				return False
+		return True
