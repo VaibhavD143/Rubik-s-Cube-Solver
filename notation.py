@@ -1,12 +1,12 @@
 class mycube():
 	global ans
 	def __init__(self):
-		self.front = ['r','w','o','o','b','r','y','b','r']
-		self.back = ['r','g','y','b','g','g','g','g','w']
-		self.left = ['g','b','g','y','w','y','y','y','o']
-		self.right = ['o','w','w','w','y','y','o','w','b']
-		self.up = ['b','o','w','o','r','o','b','b','w']
-		self.down = ['r','r','g','r','o','g','b','r','y']
+		self.front = ['b','o','g','b','b','w','g','r','b']
+		self.back = ['r','o','g','w','g','g','o','y','o']
+		self.left = ['w','o','o','r','y','r','b','b','r']
+		self.right = ['y','o','b','g','w','r','r','w','y']
+		self.up = ['o','g','y','w','r','y','y','b','r']
+		self.down = ['w','y','w','y','o','b','w','g','g']
 
 	#to rotate any side of the cube, here self is face itself and up right down left is with respect when front face is facing us
 	def rotate(self,face,up,right,down,left,name):
@@ -83,6 +83,14 @@ class mycube():
 		print('right:',self.right)
 		print('up:   ',self.up)
 		print('down: ',self.down)
+
+	def print_cube_with_faces(self):
+		faces = ['front','back','right','left','up','down']
+		for i,k in zip([self.front,self.back,self.right,self.left,self.up,self.down],faces):
+			print(k)
+			for j in range(3):
+				print(i[j*3],i[j*3+1],i[j*3+2])
+
 
 	def f(self):
 		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
@@ -248,3 +256,11 @@ class mycube():
 			if self.up[i] not in ['r','o'] or self.down[i] not in ['r','o']:
 				return False
 		return True
+	def give_unset_corners(self):
+		unset = {'up':[],'down':[]}
+		for i in range(0,9,2):
+			if self.up[i] not in ['r','o']:
+				unset['up'].append(i)
+			if self.down[i] not in ['r','o']:
+				unset['down'].append(i)
+		return unset
