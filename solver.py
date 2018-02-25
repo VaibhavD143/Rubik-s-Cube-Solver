@@ -63,7 +63,7 @@ class first_phase(mycube):
 
 		back_edge = edge_no + 8
 
-		bottom_edges = {1:[7,8],2:[5,8],3:[5,6],4:[6,7]}
+		bottom_edges = {1:[7,8,10,11,12],2:[8,5,11,12,9],3:[5,6,12,9,10],4:[6,7,9,10,11]}
 
 		for i in range(4):
 			if self.is_bad_edge(edge_no):
@@ -74,31 +74,31 @@ class first_phase(mycube):
 				return 'first'
 			moves['u']()
 		
-		for i in range(4):
-			print("====================================== here",self.get_bad_edges(),back_edge)
-			self.print_cube_with_faces()
-			if self.is_bad_edge(back_edge):
-				try:
-					ans.extend([move_name['b']]*(i))
-				except:
-					pass
-				moves['u']()
-				moves['u']()
-				ans.append(move_name['u'])
-				ans.append(move_name['u'])
-				return 'Second'
-			moves['b']()
+		# for i in range(4):
+		# 	print("====================================== here",self.get_bad_edges(),back_edge)
+		# 	self.print_cube_with_faces()
+		# 	if self.is_bad_edge(back_edge):
+		# 		try:
+		# 			ans.extend([move_name['b']]*(i))
+		# 		except:
+		# 			pass
+		# 		moves['u']()
+		# 		moves['u']()
+		# 		ans.append(move_name['u'])
+		# 		ans.append(move_name['u'])
+		# 		return 'Second'
+		# 	moves['b']()
 
-		if is_bad_edge(bottom_edges[edge_no][0]):
+		if self.is_bad_edge(bottom_edges[edge_no][0]):
 			moves['r']()
 			moves['r']()
 			moves['u']()
 			moves['r']()
 			moves['r']()
 			ans.extend([move_name['r'],move_name['r'],move_name['u'],move_name['r'],move_name['r']])
-			return 'Third'
+			return 'second'
 
-		if is_bad_edge(bottom_edges[edge_no][1]):
+		if self.is_bad_edge(bottom_edges[edge_no][1]):
 			moves['l']()
 			moves['l']()
 			moves['u']()
@@ -107,11 +107,39 @@ class first_phase(mycube):
 			moves['l']()
 			moves['l']()
 			ans.extend([move_name['l'],move_name['l'],move_name['u'],move_name['u'],move_name['u'],move_name['l'],move_name['l']])
-			return 'Fourth'
+			return 'third'
+
+		if self.is_bad_edge(bottom_edges[edge_no][2]):
+			moves['r']()
+			moves['r']()
+			moves['r']()
+			moves['u']()
+			moves['r']()
+			ans.extend([move_name['r'],move_name['r'],move_name['r'],move_name['u'],move_name['r']])
+			return 'fourth'
+
+		if self.is_bad_edge(bottom_edges[edge_no][3]):
+			moves['b']()
+			moves['b']()
+			moves['u']()
+			ans.extend([move_name['b'],move_name['b'],move_name['u']])
+			return 'fifth'
+
+		if self.is_bad_edge(bottom_edges[edge_no][4]):
+			moves['l']()
+			moves['u']()
+			moves['u']()
+			moves['u']()
+			moves['l']()
+			moves['l']()
+			moves['l']()
+			ans.extend([move_name['l'],move_name['u'],move_name['u'],move_name['u'],move_name['l'],move_name['l'],move_name['l']])
+			return 'sixth'
+	
 	#solve bad edges of the cube
 	def solve_bad_edges(self):
 		t=3
-		while t:
+		while True:
 			bad_edges = self.get_bad_edges()
 			len_bad_edges = len(bad_edges)
 			if  len_bad_edges % 2:
@@ -121,16 +149,11 @@ class first_phase(mycube):
 			elif len_bad_edges == 0:
 				return True
 			elif len_bad_edges == 2 :
-				print("======================================",t,self.get_bad_edges())
-				self.print_cube_with_faces()
 				self.from_two_bad_edges_to_four(bad_edges)
-				self.print_cube_with_faces()
-				print("======================================",t,self.get_bad_edges())
 			for i in range(4):
 				self.move_bad_edges_to_front(i+1)
 			self.f()
 			ans.append('f')
-			t-=1
 
 
 	#to set upper or down layer for setting cross on top and down 
@@ -206,9 +229,6 @@ class first_phase(mycube):
 		
 	def set_ro_corners(self):
 		while(not self.check_ro_corners()):
-			# print('--------------------------------------------')
-			# print(ans)
-			# self.print_cube_with_faces()
 			flag_upper_line = flag_down_line = flag_up = flag_down =0
 			ro = ['r','o'] 
 			for i in [self.front,self.right,self.back,self.left]:
@@ -305,22 +325,20 @@ class first_phase(mycube):
 			
 if __name__ == '__main__':
 	ans = []
-	# cube = mycube()
 	f =first_phase()
-	# f.print_cube_with_faces()
+	f.print_cube_with_faces()
 	f.solve_bad_edges()
 	print("------------------------------------------------solved bad edges--------------------------")
-	print(f.get_bad_edges())
 	f.print_cube_with_faces()
-	# print(f.get_bad_edges())
-
-	# f.make_ro_cross()
-	# print("------------------------------------------------ro cross-----------------------------------")
-	# f.print_cube_with_faces()
-	# f.set_ro_corners()
-	# print("------------------------------------------------Up and down side settled--------------------------")
-	# f.print_cube_with_faces()
-	# print(ans)
+	print(ans)
+	f.make_ro_cross()
+	print("------------------------------------------------ro cross-----------------------------------")
+	f.print_cube_with_faces()
+	print(ans)
+	f.set_ro_corners()
+	print("------------------------------------------------Up and down side settled--------------------------")
+	f.print_cube_with_faces()
+	print(ans)
 	# print ()
 	# f.make_ro_cross()
 	# f.print_cube_with_faces()
