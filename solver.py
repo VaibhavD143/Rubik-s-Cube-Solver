@@ -1,11 +1,9 @@
 from notation import *
-
-
+from second_phase import *
 class first_phase(mycube):
 
 	global ans #answer variable containing all the steps
 	front_edges = [1,2,3,4] #edges those are in front face 	
-
 	#To convert two bad edges to four bad edges 
 	def from_two_bad_edges_to_four(self,bad_edges):
 		#When both bad edges are in front face
@@ -236,9 +234,7 @@ class first_phase(mycube):
 					flag_upper_line = 1
 				if i[6] in ro or i[8] in ro:
 					flag_down_line = 1
-			# print(flag_down_line,flag_upper_line)
 			if flag_down_line and flag_upper_line:
-				# print("here")
 				for i in [self.front,self.right,self.back,self.left]:
 					if i[0] in ro:
 						flag_up = 1
@@ -310,7 +306,7 @@ class first_phase(mycube):
 					ans.append('f2')
 				elif len(unset_corners) == 2:
 					if unset_corners[0] == 0:
-						if unset_corners[1] in [2,7]:
+						if unset_corners[1] in [2,8]:
 							self.r2()
 							ans.append('r2')
 						elif unset_corners[1] == 6:
@@ -338,6 +334,10 @@ if __name__ == '__main__':
 	f.set_ro_corners()
 	print("------------------------------------------------Up and down side settled--------------------------")
 	f.print_cube_with_faces()
+	print(ans)
+	s =second_phase(f)
+	ans.extend(s.set_conflicting_corners())
+	s.print_cube_with_faces()
 	print(ans)
 	# print ()
 	# f.make_ro_cross()
