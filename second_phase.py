@@ -185,11 +185,15 @@ class second_phase(mycube):
 				break
 			elif up_state == 1 and down_state == 1:
 				print([1,1])
-				self.do_algo(0)
+				while self.back[0] != self.back[2]:
+					self.u()
+					self.ans.append('u')
+
 				while self.front[6] != self.front[8]:
 					self.d()
 					self.ans.append('d')
-				self.do_algo(1)
+				self.do_algo(0)
+				
 			elif up_state == 0 and down_state == 0:
 				print([0,0])
 				self.r2()
@@ -244,79 +248,58 @@ class second_phase(mycube):
 	#make all side faces b/g or w/y 2B
 	def make_sides(self):
 		edge_face_function_mapping = {1:self.f2,5:self.l2,6:self.r2,9:self.b2}
+		edge_face_move_mapping = {1:'f2',5:'l2',6:'r2',9:'b2'}
+		top_layer_edges = [1,5,6,9]
 		while True:
 			#all conflicting edges but non conflicting edges of top layer only
 			conf_edges,non_conf_edges = self.get_conflicting_edges()
 			n_conf_edges = len(conf_edges)
 			print(n_conf_edges)
-			print(conf_edges)
+			if self.front[0] not in ['b','g']:
+				self.u()
+				self.ans.append('u')
+			if self.front[6] not in ['b','g']:
+				self.d()
+				self.ans.append('d')
 			if n_conf_edges == 0:
 				break
 			elif n_conf_edges == 2:
-				#if there are 2 conf_edge you have to make them 4
-				n_non_conf_edges = len(non_conf_edges)
-				print(n_non_conf_edges)
-				if n_non_conf_edges == 4:
-					#both conf_edges on bottom layer
-					while not self.is_conf_edge(3):
-						self.d()
-						self.ans.append('d')
-					self.f2()
-					self.ans.append('f2')
-					if self.is_conf_edge(7) or self.is_conf_edge(8):
-						self.d()
-						self.ans.append('d')
-				elif n_non_conf_edges == 2:
-					#both conf_edges on top layer
-					while not self.is_conf_edge(5):
-						print("up")
-						self.u()
-						self.ans.append('u')
-					self.l2()
-					self.ans.append('l2')
-					if self.is_conf_edge(1) or self.is_conf_edge(9):
-						print("up")
-						self.u()
-						self.ans.append('u')
-				elif n_non_conf_edges == 3:
-					#1 conf_edge on top and bottom layers
-					while not self.is_conf_edge(1):
-						print("up")
-						self.u()
-						self.ans.append('u')
-					while not self.is_conf_edge(3):
-						print("down")
-						self.d()
-						self.ans.append('d')
-				self.print_cube_with_faces()
-				print("lalala")
-				
-				self.d1()
+				for edge in top_layer_edges:
+					if self.is_conf_edge(edge):
+						edge_face_function_mapping[edge]()
+						self.ans.append(edge_face_move_mapping[edge])
+				if self.is_conf_edge(7):
+					self.d1()
+					self.ans.append('d1')
+				elif self.is_conf_edge(8):
+					self.d()
+					self.ans.append('d')
 				self.l2()
 				self.r2()
-				self.d()
-				self.ans.append('d1')
 				self.ans.append('l2')
 				self.ans.append('r2')
+				self.d()
 				self.ans.append('d')
-				self.print_cube_with_faces()
+					
 			else:
-				#first bring all conf_edges to top layer 
-				for edge in non_conf_edges:
-					while not self.is_conf_edge(self.get_down_edge(edge)):
-						self.d()
-						self.ans.append('d')
-					edge_face_function_mapping[edge]()
-				#then move 2 of them to down
-				print("boom")
+				for edge in top_layer_edges:
+					if not self.is_conf_edge(edge):
+						if self.is_conf_edge(self.get_down_edge(edge)):
+							edge_face_function_mapping[edge]()
+							self.ans.append(edge_face_move_mapping[edge])
+						else:
+							self.d2()
+							edge_face_function_mapping[edge]()
+							self.ans.append('d2')
+							self.ans.append(edge_face_move_mapping[edge])
 				self.l2()
 				self.r2()
-				self.ans.append('l2')
-				self.ans.append('r2')
 				self.d1()
 				self.l2()
 				self.r2()
 				self.d()
+				self.ans.append('l2')
+				self.ans.append('r2')
 				self.ans.append('d1')
 				self.ans.append('l2')
 				self.ans.append('r2')
