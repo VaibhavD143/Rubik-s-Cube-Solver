@@ -2,6 +2,7 @@ from notation import *
 
 class second_phase(mycube):
 	ans = []
+	#constructor gets current state (i.e, first stage solved) and initializes the super class (i.e the generic cube)
 	def __init__(self,c_state):
 		self.up = c_state.up
 		self.down = c_state.down
@@ -9,9 +10,21 @@ class second_phase(mycube):
 		self.front = c_state.front
 		self.right = c_state.right
 		self.left = c_state.left
-
+	#this is basically a controller method which calls other methods eho actually solve the cube and returns the ans for THIS STAGE
+	def solve(self):
+		self.set_conflicting_corners()
+		print("after adjusting corners")
+		self.print_cube_with_faces()
+		self.set_adjacent_corners_same()
+		print("after adjacent corners are same")
+		self.print_cube_with_faces()
+		self.make_sides()
+		print("after makng sides")
+		return self.ans
+	
+	#returns conflicting corners (i.e orange on up face or red on down face) of up face if face=0 else returns conflicting corners of down face
 	def get_conflicting_corners(self,face):
-		#returns conflicting corners of up face if face=0 else returns conflicting corners of down face
+		
 		count = 0
 		conflicting_corner=[]
 		if face == 0:
@@ -34,14 +47,15 @@ class second_phase(mycube):
 
 		return count,conflicting_corner
 
+	#this basically is first step of 2A
 	def set_conflicting_corners(self):
 		# ans = []
-		self.print_cube_with_faces()
+		# self.print_cube_with_faces()
 		adjacent_corner = {0:8,2:6,6:2,8:0}
 		while True:
 			n_conflicting_corners,conflicting_corners = self.get_conflicting_corners(0)
-			print(n_conflicting_corners)
-			print(conflicting_corners)
+			# print(n_conflicting_corners)
+			# print(conflicting_corners)
 			#no conflicting corners
 			if n_conflicting_corners==0:
 				break
@@ -159,11 +173,224 @@ class second_phase(mycube):
 				self.ans.extend(['r2','l2'])
 				break
 		return self.ans
+	#this makes adjacent corners on front,back,left and right same
+	def set_adjacent_corners_same(self):
+		
+		while True:
+			# 0 = all mismatch | 1 = 1 match | 2 = all matched
+			up_state,down_state = self.get_layer_state()
+			#all 9 cases and their solutions
+			if up_state == 2 and down_state == 2:
+				print([2,2])
+				break
+			elif up_state == 1 and down_state == 1:
+				print([1,1])
+				self.do_algo(0)
+				while self.front[6] != self.front[8]:
+					self.d()
+					self.ans.append('d')
+				self.do_algo(1)
+			elif up_state == 0 and down_state == 0:
+				print([0,0])
+				self.r2()
+				self.f2()
+				self.r2()
+				self.ans.extend(['r2','f2','r2'])
+			elif up_state == 1 and down_state == 0:
+				print([1,0])
+				while self.front[0] != self.front[2]:
+					self.u()
+					self.ans.append('u')
+				self.do_algo(0)
+			elif up_state == 0 and down_state == 1:
+				print([0,1])
+				while self.front[6] != self.front[8]:
+					self.d()
+					self.ans.append('d')
+				self.do_algo(1)
+			elif up_state == 0 and down_state == 2:
+				print([0,2])
+				self.do_algo(0)
+			elif up_state == 2 and down_state == 0:
+				print([2,0])
+				self.do_algo(1)
+			elif up_state == 1 and down_state == 2:
+				print([1,2])
+				while self.back[0] != self.back[2]:
+					self.f()
+					self.ans.append('f')
+				self.do_algo(0)
+			elif up_state == 2 and down_state == 1:
+				print([2,1])
+				while self.back[6] != self.back[8]:
+					self.d()
+					self.ans.append('d')
+				self.do_algo(1)
 
+	#this checks whether 2 corners are adjacent or not
 	def is_adjacent(self,a,b):
 		# print(b)
 		adjacent_list = {0:[2,6] , 2:[0,8] , 6:[0,8] , 8:[2,6]}
 		return (a in adjacent_list[b]) 
+
+	#gives down corners 
 	def get_down_corner(self,a):
 		down_dic = {0:6,2:8,6:0,8:2}
 		return down_dic[a]
+	#same as above but for edges
+	def get_down_edge(self,edge):
+		down_dic = {1:3,3:1,5:8,6:7,7:6,8:5,9:11,11:9}
+		return down_dic[edge]
+	#make all side faces b/g or w/y 2B
+	def make_sides(self):
+		edge_face_function_mapping = {1:self.f2,5:self.l2,6:self.r2,9:self.b2}
+		while True:
+			#all conflicting edges but non conflicting edges of top layer only
+			conf_edges,non_conf_edges = self.get_conflicting_edges()
+			n_conf_edges = len(conf_edges)
+			print(n_conf_edges)
+			print(conf_edges)
+			if n_conf_edges == 0:
+				break
+			elif n_conf_edges == 2:
+				#if there are 2 conf_edge you have to make them 4
+				n_non_conf_edges = len(non_conf_edges)
+				print(n_non_conf_edges)
+				if n_non_conf_edges == 4:
+					#both conf_edges on bottom layer
+					while not self.is_conf_edge(3):
+						self.d()
+						self.ans.append('d')
+					self.f2()
+					self.ans.append('f2')
+					if self.is_conf_edge(7) or self.is_conf_edge(8):
+						self.d()
+						self.ans.append('d')
+				elif n_non_conf_edges == 2:
+					#both conf_edges on top layer
+					while not self.is_conf_edge(5):
+						print("up")
+						self.u()
+						self.ans.append('u')
+					self.l2()
+					self.ans.append('l2')
+					if self.is_conf_edge(1) or self.is_conf_edge(9):
+						print("up")
+						self.u()
+						self.ans.append('u')
+				elif n_non_conf_edges == 3:
+					#1 conf_edge on top and bottom layers
+					while not self.is_conf_edge(1):
+						print("up")
+						self.u()
+						self.ans.append('u')
+					while not self.is_conf_edge(3):
+						print("down")
+						self.d()
+						self.ans.append('d')
+				self.print_cube_with_faces()
+				print("lalala")
+				
+				self.d1()
+				self.l2()
+				self.r2()
+				self.d()
+				self.ans.append('d1')
+				self.ans.append('l2')
+				self.ans.append('r2')
+				self.ans.append('d')
+				self.print_cube_with_faces()
+			else:
+				#first bring all conf_edges to top layer 
+				for edge in non_conf_edges:
+					while not self.is_conf_edge(self.get_down_edge(edge)):
+						self.d()
+						self.ans.append('d')
+					edge_face_function_mapping[edge]()
+				#then move 2 of them to down
+				print("boom")
+				self.l2()
+				self.r2()
+				self.ans.append('l2')
+				self.ans.append('r2')
+				self.d1()
+				self.l2()
+				self.r2()
+				self.d()
+				self.ans.append('d1')
+				self.ans.append('l2')
+				self.ans.append('r2')
+				self.ans.append('d')
+	#state is how many corners mismatch (used in set_adjacent_corners_same)
+	def get_layer_state(self):
+		ans = [0,0]
+		up_count = down_count = 0
+		mapping = {0:0,1:1,4:2}
+		faces = [self.front,self.right,self.back,self.left]
+		for face in faces:
+			if face[0] == face[2]:
+				up_count+=1
+			if face[6] == face[8]:
+				down_count+=1
+		return [mapping[up_count],mapping[down_count]]
+	#just a helper function to reduce code in set_adjacent_corners_same
+	def do_algo(self,flag):
+		if flag == 0:
+			self.r1()
+			self.f()
+			self.r1()
+			self.b2()
+			self.r()
+			self.f1()
+			self.r()
+			self.ans.extend(['r1','f','r1','b2','r','f1','r'])
+		else:
+			self.l1()
+			self.f()
+			self.l1()
+			self.b2()
+			self.l()
+			self.f1()
+			self.l()
+			self.ans.extend(['l1','f','l1','b2','l','f1','l'])
+	#edge is conflicting if it is residing between 2 corners whose color doesn't match with it (e.g. yellow in between b|g)
+	def get_conflicting_edges(self):
+		conf_edges = []
+		n_conf_edges = []
+		up_layer_edges = [1,5,6,9]
+		all_edges = [1,3,5,6,7,8,9,11]
+		for i in all_edges:
+			if self.is_conf_edge(i):
+				conf_edges.append(i)
+			elif i in up_layer_edges:
+				n_conf_edges.append(i)
+		return [conf_edges,n_conf_edges]
+	
+	def is_conf_edge(self,edge):
+		up_layer_edges = [1,5,6,9]
+		down_layer_edges = [3,7,8,11]
+		front_edges = [1,3]
+		right_edges = [6,7]
+		back_edges = [9,11]
+		left_edges = [5,8]
+		edge_face_mapping = {
+								1:self.front,
+								3:self.front,
+								5:self.left,
+								6:self.right,
+								7:self.right,
+								8:self.left,
+								9:self.back,
+								11:self.back	
+		}
+		face = edge_face_mapping[edge]
+		if(edge in up_layer_edges):
+			if (face[0] in ['b','g'] and face[1] in ['b','g']) or (face[0] in ['w','y'] and face[1] in ['w','y']):
+				return False
+			else:
+				return True
+		elif(edge in down_layer_edges):
+			if (face[7] in ['b','g'] and face[8] in ['b','g']) or (face[7] in ['w','y'] and face[8] in ['w','y']):
+				return False
+			else:
+				return True	

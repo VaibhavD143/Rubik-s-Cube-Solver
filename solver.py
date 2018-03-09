@@ -321,7 +321,10 @@ class first_phase(mycube):
 			
 if __name__ == '__main__':
 	ans = []
+
 	f =first_phase()
+	f.f()
+	f.b()
 	f.print_cube_with_faces()
 	f.solve_bad_edges()
 	print("------------------------------------------------solved bad edges--------------------------")
@@ -336,9 +339,6 @@ if __name__ == '__main__':
 	f.print_cube_with_faces()
 	print(ans)
 	s =second_phase(f)
-	ans.extend(s.set_conflicting_corners())
+	ans.extend(s.solve())
 	s.print_cube_with_faces()
-	print(ans)
-	# print ()
-	# f.make_ro_cross()
-	# f.print_cube_with_faces()
+	
