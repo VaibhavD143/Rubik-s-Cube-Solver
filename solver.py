@@ -1,5 +1,7 @@
 from notation import *
 from second_phase import *
+from third_phase import *
+
 class first_phase(mycube):
 
 	global ans #answer variable containing all the steps
@@ -341,4 +343,9 @@ if __name__ == '__main__':
 	s =second_phase(f)
 	ans.extend(s.solve())
 	s.print_cube_with_faces()
-	
+	print(ans)
+	print("------------------------------------------------Third Phase started--------------------------")
+	t = third_phase(s)
+	ans.extend(t.solve())
+	print(ans)
+

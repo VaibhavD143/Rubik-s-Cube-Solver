@@ -1,0 +1,5 @@
+- start with top-down, front-back and then left-right(mostly not needed)
+- it must be even
+- set them opposite and move 180* (all moves must be 180* degree)
+- do this one by one
+- it'll end in max 3 steps
