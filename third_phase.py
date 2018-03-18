@@ -47,6 +47,108 @@ class third_phase(mycube):
 		self.set_corner_of_face(self.front,self.back,self.u,self.d,self.l,self.r,self.f,self.b,{'u':'u','d':'d','l':'l','r':'r','f':'f','b':'b'})
 		self.set_corner_of_face(self.right,self.left,self.u,self.d,self.f,self.b,self.r,self.l,{'u':'u','d':'d','l':'f','r':'b','f':'r','b':'l'})
 
+	def check_algo1(self):
+		face_edge_fun = { 'front':{1:self.u2,3:self.l2,5:self.r2,7:self.d2},
+						  'back':{1:self.u2,3:self.r2,5:self.l2,7:self.d2},
+						   'up':{1:self.b2,3:self.l2,5:self.r2,7:self.f2},
+						  'down':{1:self.f2,3:self.l2,5:self.r2,7:self.b2},
+						  'left':{1:self.u2,3:self.b2,5:self.f2,7:self.d2},
+						  'right':{1:self.u2,3:self.f2,5:self.b2,7:self.d2},
+						}
+		faces = [self.front,self.back,self.left,self.right,self.up,self.down]
+		faces2 = ['front','back','left','right','up','down']
+		function_name = {self.f2:'f2',self.b2:'b2',self.l2:'l2',self.r2:'r2',self.u2:'u2',self.d2:'d2'}
+		i=0
+		for face in faces:
+			bad_edges[i] = self.get_bad_edges_on_face(face)
+			i+=1
+		#well this for loop works for checking front-back and left-right but not up-down(for that below is the if conditoins)
+		for i in range(0,4,2):
+			if 1 in bad_edges[i] and 3 in bad_edges[i]:
+				if 1 in bad_edges[i+1] and 5 in bad_edges[i+1]:
+					up_function = face_edge_fun[faces2[i]][1]
+					right_function = face_edge_fun[faces2[i]][3]
+					up_function_name = function_name[up_function]
+					right_function_name = function_name[right_function]
+					self.algo1(up_function,right_function,up_function_name,right_function_name)
+				elif 1 in bad_edges[i+1] and 3 in bad_edges[i+1]:
+					up_function = face_edge_fun[faces2[i]][1]
+					right_function = face_edge_fun[faces2[i]][3]
+					up_function_name = function_name[up_function]
+					right_function_name = function_name[right_function]
+					self.algo1(up_function,right_function,up_function_name,right_function_name)
+				elif 3 in bad_edges[i+1] and 7 in bad_edges[i+1]:
+					up_function = face_edge_fun[faces2[i]][1]
+					right_function = face_edge_fun[faces2[i]][3]
+					up_function_name = function_name[up_function]
+					right_function_name = function_name[right_function]
+					self.algo1(up_function,right_function,up_function_name,right_function_name)
+
+			elif 1 in bad_edges[i] and 5 in bad_edges[i]:
+				if 1 in bad_edges[i+1] and 3 in bad_edges[i+1]:
+					up_function = face_edge_fun[faces2[i]][1]
+					right_function = face_edge_fun[faces2[i]][5]
+					up_function_name = function_name[up_function]
+					right_function_name = function_name[right_function]
+					self.algo1(up_function,right_function,up_function_name,right_function_name)
+				elif 1 in bad_edges[i+1] and 5 in bad_edges[i+1]:
+				elif 5 in bad_edges[i+1] and 7 in bad_edges[i+1]:
+			elif 3 in bad_edges[i] and 7 in bad_edges[i] :
+				if 5 in bad_edges[i+1] and 7 in bad_edges[i+1]:
+					up_function = face_edge_fun[faces2[i]][7]
+					right_function = face_edge_fun[faces2[i]][3]
+					up_function_name = function_name[up_function]
+					right_function_name = function_name[right_function]
+					self.algo1(up_function,right_function,up_function_name,right_function_name)
+				elif 3 in bad_edges[i+1] and 7 in bad_edges[i+1]:
+				elif 1 in bad_edges[i+1] and 5 in bad_edges[i+1]:
+			elif 5 in bad_edges[i] and 7 in bad_edges[i] :
+				if 3 in bad_edges[i+1] and 7 in bad_edges[i+1]:
+					up_function = face_edge_fun[faces2[i]][7]
+					right_function = face_edge_fun[faces2[i]][5]
+					up_function_name = function_name[up_function]
+					right_function_name = function_name[right_function]
+					self.algo1(up_function,right_function,up_function_name,right_function_name)
+				elif 5 in bad_edges[i+1] and 7 in bad_edges[i+1]:
+				elif 1 in bad_edges[i+1] and 3 in bad_edges[i+1]:
+
+		if 1 in bad_edges[4] and 3 in bad_edges[4]:
+			if 3 in bad_edges[5] and 7 in bad_edges[5]:
+				up_function = face_edge_fun[faces2[4]][1]
+				right_function = face_edge_fun[faces2[4]][3]
+				up_function_name = function_name[up_function]
+				right_function_name = function_name[right_function]
+				self.algo1(up_function,right_function,up_function_name,right_function_name)
+			elif 1 in bad_edges[5] and 3 in bad_edges[5]:
+			elif 5 in bad_edges[5] and 7 in bad_edges[5]:
+		elif 1 in bad_edges[4] and 5 in bad_edges[4] :
+			if 5 in bad_edges[5] and 7 in bad_edges[5]:
+				up_function = face_edge_fun[faces2[4]][1]
+				right_function = face_edge_fun[faces2[4]][5]
+				up_function_name = function_name[up_function]
+				right_function_name = function_name[right_function]
+				self.algo1(up_function,right_function,up_function_name,right_function_name)
+			elif 1 in bad_edges[5] and 5 in bad_edges[5]:
+			elif 3 in bad_edges[5] and 7 in bad_edges[5]:
+		elif 3 in bad_edges[4] and 7 in bad_edges[4] :
+			if 1 in bad_edges[5] and 3 in bad_edges[5]:
+				up_function = face_edge_fun[faces2[i]][7]
+				right_function = face_edge_fun[faces2[i]][3]
+				up_function_name = function_name[up_function]
+				right_function_name = function_name[right_function]
+				self.algo1(up_function,right_function,up_function_name,right_function_name)
+			elif 1 in bad_edges[5] and 5 in bad_edges[5]:
+			elif 3 in bad_edges[5] and 7 in bad_edges[5]:
+		elif 5 in bad_edges[4] and 7 in bad_edges[4] :
+			if 1 in bad_edges[5] and 5 in bad_edges[5]:
+				up_function = face_edge_fun[faces2[i]][7]
+				right_function = face_edge_fun[faces2[i]][5]
+				up_function_name = function_name[up_function]
+				right_function_name = function_name[right_function]
+				self.algo1(up_function,right_function,up_function_name,right_function_name)
+			elif 5 in bad_edges[5] and 7 in bad_edges[5]:
+			elif 1 in bad_edges[5] and 3 in bad_edges[5]:
+	
 	def check_algo2(self):
 		edge_move = [{1:self.d2,3:self.r2},{1:self.d2,3:self.b2},{1:self.f2,3:self.r2}]
 		face_function_name = {self.front:'f2',self.back:'b2',self.left:'l2',self.right:'r2',self.up:'u2',self.down:'d2'}
@@ -61,17 +163,30 @@ class third_phase(mycube):
 					self.algo2(edge_move[i][3],face_function_name[edge_move[i][3]],edge_middle_move[i][3])
 	def check_algo4(self):
 
-		if self.front[1]!=self.front[4] and self.right[1]!=self.right[4] and self.back[1]!=self.back[4] and self.left[1]!=self.left[4]:
-			self.algo4()
-		elif self.front[7]!=self.front[4] and self.right[7]!=self.right[4] and self.back[7]!=self.back[4] and self.left[7]!=self.left[4]:
+		if self.front[1]!=self.front[4]  and self.back[1]!=self.back[4]:
+			if (self.right[1]!=self.right[4] and self.left[1]!=self.left[4]) or (self.right[7]!=self.right[4] and self.left[7]!=self.left[4]):
+				self.algo4(self.u,'u',1)
 
-		elif self.front[5]!=self.front[4] and self.up[5]!=self.up[4] and self.back[3]!=self.back[4] and self.down[5]!=self.down[4]:
+		elif self.front[7]!=self.front[4] and self.back[7]!=self.back[4]:
+			if  (self.right[7]!=self.right[4]  and self.left[7]!=self.left[4]) or (self.right[1]!=self.right[4]  and self.left[1]!=self.left[4]):
+				self.algo4(self.d,'d',1)
 
-		elif self.front[3]!=self.front[4] and self.up[3]!=self.up[4] and self.back[5]!=self.back[4] and self.down[3]!=self.down[4]:
+		elif self.front[5]!=self.front[4]  and self.back[3]!=self.back[4] :
+			if (self.up[5]!=self.up[4] and self.down[5]!=self.down[4]) or (self.up[3]!=self.up[4] and self.down[3]!=self.down[4]):
+				self.algo4(self.r,'r',2)
 
-		elif self.right[3]!=self.right[4] and self.up[7]!=self.up[4] and self.left[5]!=self.left[4] and self.down[1]!=self.down[4]:
+		elif self.front[3]!=self.front[4]  and self.back[5]!=self.back[4] and self.down[3]!=self.down[4]:
+			if (self.up[3]!=self.up[4] and self.down[3]!=self.down[4]) or (self.up[5]!=self.up[4] and self.down[5]!=self.down[4]):
+				self.algo4(self.l,'l',2)
+		
+		elif self.right[3]!=self.right[4]  and self.left[5]!=self.left[4] :
+			if (self.up[7]!=self.up[4] and self.down[1]!=self.down[4]) or (self.up[1]!=self.up[4] and self.down[7]!=self.down[4]):
+				self.algo4(self.f,'f',3)
+		
+		elif self.right[5]!=self.right[4] and self.left[3]!=self.left[4] :
+			if (self.up[1]!=self.up[4] and self.down[7]!=self.down[4]) or (self.up[7]!=self.up[4] and self.down[1]!=self.down[4]):
+				self.algo4(self.f,'b',3)
 
-		elif self.right[5]!=self.right[4] and self.up[1]!=self.up[4] and self.left[3]!=self.left[4] and self.down[7]!=self.down[4]:
 
 	def algo1(self,up_fun,right_fun,up_fun_name,right_fun_name):
 		for x in range(0,3):
@@ -103,16 +218,30 @@ class third_phase(mycube):
 		self.ans.extend([front_fun_name,'r1','l',front_fun_name,'r','l1'])
 		
 	def algo4(self,up_fun,up_fun_name,middle_layer):
-		self.l2()
-		self.r2()
+		middle_layer_fun = None
+		if middle_layer == 1:
+			middle_layer_fun = self.mf2()
+			middle_layer_fun_name = 'mf2'
+		elif middle_layer == 2:
+			middle_layer_fun = self.mr2()
+			middle_layer_fun_name = 'mr2'
+		elif middle_layer == 3:
+			middle_layer_fun = self.mc2()
+			middle_layer_fun_name = 'mc2'
+
+		middle_layer_fun()
 		up_fun()
-		self.l2()
-		self.r2()
+		middle_layer_fun()
 		up_fun()
 		up_fun()
-		self.l2()
-		self.r2()
+		middle_layer_fun()
 		up_fun()
-		self.l2()
-		self.r2()
-		self.ans.extend(['l2','r2',up_fun_name,'l2','r2',up_fun_name,up_fun_name,'l2','r2',up_fun_name,'l2','r2'])
+		middle_layer_fun()
+		self.ans.extend([middle_layer_fun_name,up_fun_name,middle_layer_fun_name,up_fun_name,up_fun_name,middle_layer_fun_name,up_fun_name,middle_layer_fun_name])
+
+
+	def get_bad_edges_on_face(self,face):
+		ans = []
+		for i in [1,3,5,7]:
+			if face[i] != face[4]
+				ans.append(i)
