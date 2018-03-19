@@ -161,6 +161,93 @@ class third_phase(mycube):
 			elif f[3] != face_color[f] and b[3] != face_color[b]:
 				if f[5] != face_color[f] and b[5] != face_color[b]:
 					self.algo2(edge_move[i][3],face_function_name[edge_move[i][3]],edge_middle_move[i][3])
+	
+	def check_algo3(self):
+
+
+		if (self.front[7] != self.front[4] and self.down[1] != self.down[4] and self.back[1] != self.back[4]  and self.up[7] != self.up[4]):
+			self.algo3(self.f2,self.mf1,self.mf,['f2','mf1','mf'])
+		
+		elif (self.front[7] != self.front[4] and self.down[1] != self.down[4] and self.back[7] != self.back[4] and self.up[1] != self.up[4]):
+			self.algo3(self.d2,self.mf,self.mf1,['d2','mf','mf1'])
+
+		elif (self.front[1] != self.front[4] and self.up[7] != self.up[4] and self.down[1] != self.down[4] and self.back[7] != self.back[4]):
+			self.algo3(self.f2,self.mf,self.mf1,['f2','mf','mf1'])
+
+		elif (self.front[1] != self.front[4] and self.up[7] != self.up[4] and  self.down[7] != self.down[4] and self.back[1] != self.back[4]):
+			self.algo3(self.u2,self.mf1,self.mf,['u2','mf1','mf'])
+
+		elif (self.up[1] != self.up[4] and self.back[1] != self.back[4] and self.front[7] != self.front[4] and self.down[7] != self.down[4]):
+			self.algo3(self.b2,self.mf1,self.mf,['u2','mf1','mf'])
+		
+		elif (self.up[1] != self.up[4] and self.back[1] != self.back[4] and self.front[1] != self.front[4] and self.down[1] != self.down[4]):
+			self.algo3(self.u2,self.mf,self.mf1,['u2','mf','mf1'])
+		
+		elif (self.down[7] != self.down[4] and self.back[7] != self.back[4] and self.front[7] != self.front[4] and self.up[7] != self.up[4]):
+			self.algo3(self.d2,self.mf1,self.mf,['d2','mf1','mf'])
+
+		elif (self.down[7] != self.down[4] and self.back[7] != self.back[4] and self.front[1] != self.front[4] and self.up[1] != self.up[4]):
+			self.algo3(self.b2,self.mf,self.mf1,['b2','mf','mf1'])
+
+		elif (self.right[7] != self.right[4] and self.down[5] != self.down[4] and self.up[5] != self.up[4] and self.left[1] != self.left[4]):
+			self.algo3(self.r2,self.mr1,self.mr,['r2','mr1','mr'])
+
+		elif (self.right[7] != self.right[4] and self.down[5] != self.down[4] and self.up[3] != self.up[4] and self.left[7] != self.left[4]):
+			self.algo3(self.d2,self.mr,self.mr1,['d2','mr','mr1'])
+
+		elif (self.right[1] != self.right[4] and self.up[5] != self.up[4] and self.left[1] != self.left[4] and self.down[3] != self.down[4]):
+			self.algo3(self.u2,self.mr1,self.mr,['u2','mr1','mr'])	
+
+		elif (self.right[1] != self.right[4] and self.up[5] != self.up[4] and self.left[7] != self.left[4] and self.down[5] != self.down[4]):
+			self.algo3(self.r2,self.mr,self.mr1,['u2','mr','mr1'])
+
+		elif (self.left[1] != self.left[4] and self.up[3] != self.up[4] and self.right[7] != self.right[4] and self.down[3] != self.down[4]):
+			self.algo3(self.l2,self.mr1,self.mr,['l2','mr1','mr'])
+
+		elif (self.left[1] != self.left[4] and self.up[3] != self.up[4] and self.right[1] != self.right[4] and self.down[5] != self.down[4]):
+			self.algo3(self.u2,self.mr,self.mr1,['u2','mr','mr1'])
+
+		elif (self.left[7] != self.left[4] and self.down[3] != self.down[4] and self.right[7] != self.right[4] and self.up[5] != self.up[4]):
+			self.algo3(self.d2,self.mr1,self.mr,['d2','mr1','mr'])
+		
+		elif (self.left[7] != self.left[4] and self.down[3] != self.down[4] and self.up[3] != self.right[4] and self.right[1] != self.up[4]):
+			self.algo3(self.l2,self.mr,self.mr1,['l2','mr','mr1'])
+
+		elif (self.front[5] != self.front[4] and self.right[3] != self.right[4] and self.left[5] != self.left[4] and self.back[5] != self.back[4]):
+			self.algo3(self.f2,self.mc,self.mc1,['f2','mc','mc1'])
+
+		elif (self.front[5] != self.front[4] and self.right[3] != self.right[4] and self.back[3] != self.back[4] and self.left[3] != self.left[4]):
+			self.algo3(self.r2,self.mc1,self.mc,['r2','mc1','mc'])
+
+		elif (self.front[3] != self.front[4] and self.left[5] != self.left[4] and self.back[5] != self.back[4] and self.right[5] != self.right[4]):
+			self.algo3(self.l2,self.mc,self.mc1,['l2','mc','mc1'])
+		
+		elif (self.front[3] != self.front[4] and self.left[5] != self.left[4] and self.back[3] != self.back[4] and self.right[3] != self.right[4]):
+			self.algo3(self.f2,self.mc1,self.mc,['f2','mc1','mc'])
+
+		elif (self.left[3] != self.left[4] and self.back[5] != self.back[4] and self.right[5] != self.right[5] and self.front[5] != self.front[4]):
+			self.algo3(self.b2,self.mc,self.mc1,['b2','mc','mc1'])
+
+		elif (self.left[3] != self.left[4] and self.back[5] != self.back[4] and self.right[3] != self.right[5] and self.front[3] != self.front[4]):
+			self.algo3(self.l2,self.mc1,self.mc,['l2','mc1','mc'])
+
+		elif (self.right[5] != self.right[4] and self.back[3] != self.back[4] and self.front[5] != self.front[5] and self.left[5] != self.left[5]):
+			self.algo3(self.r2,self.mc,self.mc1,['r2','mc','mc1'])
+
+		elif (self.right[5] != self.right[4] and self.back[3] != self.back[4] and self.front[3] != self.front[5] and self.left[3] != self.left[5]):
+			self.algo3(self.b2,self.mc1,self.mc,['b2','mc1','mc'])
+
+
+
+
+
+	def algo3(self,front2,middle_layer1,middle_layer,move_names):
+		front2()
+		middle_layer1()
+		front2()
+		middle_layer()
+		self.ans.extend([move_names[0],move_names[1],move_names[0],move_names[2]])
+
 	def check_algo4(self):
 
 		if self.front[1]!=self.front[4]  and self.back[1]!=self.back[4]:
@@ -194,6 +281,7 @@ class third_phase(mycube):
 			self.ans.append(up_fun_name)
 			right_fun()
 			self.ans.append(right_fun_name)
+
 	def algo2(self,front_fun,front_fun_name,middle_layer):
 		for x in range(0,2):
 			front_fun()
@@ -208,14 +296,6 @@ class third_phase(mycube):
 			elif middle_layer == 3:
 				self.mc2()
 				self.ans.append('mc2')
-	def algo3(self,front_fun,front_fun_name):
-		front_fun()
-		self.r1()
-		self.l()
-		front_fun()
-		self.r()
-		self.l1()
-		self.ans.extend([front_fun_name,'r1','l',front_fun_name,'r','l1'])
 		
 	def algo4(self,up_fun,up_fun_name,middle_layer):
 		middle_layer_fun = None
