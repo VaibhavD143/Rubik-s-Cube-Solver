@@ -165,8 +165,7 @@ class third_phase(mycube):
 				self.algo1(up_function,right_function,up_function_name,right_function_name)
 			elif 5 in bad_edges[5] and 7 in bad_edges[5]:
 			elif 1 in bad_edges[5] and 3 in bad_edges[5]:
-	
-	
+
 	def check_algo2(self):
 		edge_move = [{1:self.d2,3:self.r2},{1:self.d2,3:self.b2},{1:self.f2,3:self.r2}]
 		face_function_name = {self.front:'f2',self.back:'b2',self.left:'l2',self.right:'r2',self.up:'u2',self.down:'d2'}
@@ -179,7 +178,7 @@ class third_phase(mycube):
 			elif f[3] != face_color[f] and b[3] != face_color[b]:
 				if f[5] != face_color[f] and b[5] != face_color[b]:
 					self.algo2(edge_move[i][3],face_function_name[edge_move[i][3]],edge_middle_move[i][3])
-	
+
 	def check_algo3(self):
 
 
@@ -284,17 +283,55 @@ class third_phase(mycube):
 	def check_algo5(self):
 		
 		bad_edges = self.get_bad_edges()
+		bad_edges = set(bad_edges)
+		all_edges = set(range(1,13))
+		loop_through = list(all_edges - bad_edges)
 		# bad_edges = sorted(bad_edges)
-
+		#if key=1 then 1 is mismatched and others are set,there can be two posibilities for this,given face is face on which it makes tri set. 
 		possible_faces = {1:[[2,3,4],'f',[5,8,9],'u'],2:[[1,3,4],'f',[5,6,10],'r'],3:[[1,2,4],'f',[6,7,11],'d'],4:[[1,2,3],'f',[7,8,12],'l'],5:[[2,6,10],'r',[1,8,9],'u'],6:[[7,11,3],'d',[5,2,10],'r'],7:[[4,8,12],'l',[3,6,11],'d'],8:[[1,5,9],'u',[4,7,12],'l'],9:[[10,11,12],'b',[1,5,8],'u'],10:[[9,11,12],'b',[2,5,6],'r'],11:[[9,10,12],'b',[3,6,7],'d'],12:[[9,10,11],'b',[4,7,8],'l']}
-		fourth_edge ={1:[3,9],2:[4,10],3:[1,11],4:[2,12],5:[6,]6:7:8:9:10:11:12}
+		#possible fourth edge for mismatch number of key
+		fourth_edge ={1:{'f':[9,11],'u':[3,11]},2:{'f':[10,12],'r':[4,12]},3:{'f':[11,9],'d':[1,9]},4:{'f':[12,10],'l':[2,10]},5:{'r':[8,7],'u':[6,7]},6:{'d':[5,8],'r':[7,8]},7:{'l':[6,5],'d':[8,5]},8:{'u':[7,6],'l':[5,6]},9:{'b':[1,3],'u':[11,3]},10:{'b':[2,4],'r':[12,4]},11:{'b':[3,1],'d':[9,1]},12:{'b':[4,2],'l':[10,2]}}
+		#required moves to perform to set four mismatch in single side
+		moves ={1:{'f':[self.u2,self.b2],'u':[self.f2,self.d2]},2:{'f':[self.r2,self.b2],'r':[self.f2,self.l2]},3:{'f':[self.d2,self.d2],'d':[self.f2,self.u2]},4:{'f':[self.l2,self.b2],'l':[self.f2,self.r2]},5:{'r':[self.u2,self.l2],'u':[self.r2,self.d2]},6:{'d':[self.r2,self.u2],'r':[self.d2,self.l2]},7:{'l':[self.d2,self.r2],'d':[self.l2,self.u2]},8:{'u':[self.l2,self.d2],'l':[self.u2,self.r2]},9:{'b':[self.u2,self.f2],'u':[self.b2,self.d2]},10:{'b':[self.r2,self.f2],'r':[self.b2,self.l2]},11:{'b':[self.d2,self.f2],'d':[self.b2,self.u2]},12:{'b':[self.l2,self.f2],'l':[self.b2,self.r2]}}
+		move_name ={1:{'f':['u2','b2'],'u':['f2','d2']},2:{'f':['r2','b2'],'r':['f2','l2']},3:{'f':['d2','d2'],'d':['f2','u2']},4:{'f':['l2','b2'],'l':['f2','r2']},5:{'r':['u2','l2'],'u':['r2','d2']},6:{'d':['r2','u2'],'r':['d2','l2']},7:{'l':['d2','r2'],'d':['l2','u2']},8:{'u':['l2','d2'],'l':['u2','r2']},9:{'b':['u2','f2'],'u':['b2','d2']},10:{'b':['r2','f2'],'r':['b2','l2']},11:{'b':['d2','f2'],'d':['b2','u2']},12:{'b':['l2','f2'],'l':['b2','r2']}}
 
-		for edge in bad_edges:
+		for edge in list():
+			if set(possible_faces[edge][0]).issubset(bad_edges):
+				if fourth_edge[edge][possible_faces[edge][1]][0] in bad_edges:
+					moves[edge][possible_faces[edge][1]][0]()
+					self.ans.append(move_name[edge][possible_faces[edge][1]][0])
 
+					moves[edge][possible_faces[edge][1]][0]()
+					self.ans.append(move_name[edge][possible_faces[edge][1]][0])
+				elif fourth_edge[edge][possible_faces[edge][1]][1] in bad_edges:
+					moves[edge][possible_faces[edge][1]][1]()
+					self.ans.append(move_name[edge][possible_faces[edge][1]][1])
+					moves[edge][possible_faces[edge][1]][0]()
+					self.ans.append(move_name[edge][possible_faces[edge][1]][0])
 
-		for i in range(1,13):
-			for j in possible_faces[i][0]:
+					moves[edge][possible_faces[edge][1]][0]()
+					self.ans.append(move_name[edge][possible_faces[edge][1]][0])
+					moves[edge][possible_faces[edge][1]][1]()
+					self.ans.append(move_name[edge][possible_faces[edge][1]][1])
 
+			elif set(possible_faces[edge][2]).issubset(bad_edges):
+				
+				if fourth_edge[edge][possible_faces[edge][3]][0] in bad_edges:
+					moves[edge][possible_faces[edge][3]][0]()
+					self.ans.append(move_name[edge][possible_faces[edge][3]][0])
+
+					moves[edge][possible_faces[edge][3]][0]()
+					self.ans.append(move_name[edge][possible_faces[edge][3]][0])
+				elif fourth_edge[edge][possible_faces[edge][3]][1] in bad_edges:
+					moves[edge][possible_faces[edge][3]][1]()
+					self.ans.append(move_name[edge][possible_faces[edge][3]][1])
+					moves[edge][possible_faces[edge][1]][0]()
+					self.ans.append(move_name[edge][possible_faces[edge][3]][0])
+
+					moves[edge][possible_faces[edge][1]][0]()
+					self.ans.append(move_name[edge][possible_faces[edge][3]][0])
+					moves[edge][possible_faces[edge][1]][1]()
+					self.ans.append(move_name[edge][possible_faces[edge][3]][1])
 
 	def algo1(self,up_fun,right_fun,up_fun_name,right_fun_name):
 		for x in range(0,3):
