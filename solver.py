@@ -325,8 +325,8 @@ if __name__ == '__main__':
 	ans = []
 
 	f =first_phase()
-	f.f()
-	f.b()
+	# f.f()
+	# f.b()
 	f.print_cube_with_faces()
 	f.solve_bad_edges()
 	print("------------------------------------------------solved bad edges--------------------------")

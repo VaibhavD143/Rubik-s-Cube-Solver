@@ -175,11 +175,13 @@ class second_phase(mycube):
 		return self.ans
 	#this makes adjacent corners on front,back,left and right same
 	def set_adjacent_corners_same(self):
-		
+		print("here")
 		while True:
 			# 0 = all mismatch | 1 = 1 match | 2 = all matched
 			up_state,down_state = self.get_layer_state()
 			#all 9 cases and their solutions
+			print(up_state,down_state)
+			print("in")
 			if up_state == 2 and down_state == 2:
 				print([2,2])
 				break
@@ -219,10 +221,10 @@ class second_phase(mycube):
 				print([2,0])
 				self.do_algo(1)
 			elif up_state == 1 and down_state == 2:
-				print([1,2])
+				# print([1,2])
 				while self.back[0] != self.back[2]:
-					self.f()
-					self.ans.append('f')
+					self.u()
+					self.ans.append('u')
 				self.do_algo(0)
 			elif up_state == 2 and down_state == 1:
 				print([2,1])

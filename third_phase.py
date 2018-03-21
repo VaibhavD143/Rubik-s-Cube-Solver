@@ -12,24 +12,39 @@ class third_phase(mycube):
 		self.left = c_state.left
 
 	def solve(self):
-
+		"""This will solve third phase in two step"""
+		#this is to solve corners of all edges
 		self.set_corners_acc_center()
 		print('-------------------------------------------- All corner set -------------------------------------------------')
 		self.print_cube_with_faces()
 		
 		return(self.ans)
 
+	def get_bad_edges_on_face(self,face):
+		ans = []
+		for i in [1,3,5,7]:
+			if face[i] != face[4]:
+				ans.append(i)
+	
 	def set_corner_of_face(self,front_face,back_face,up,down,left,right,front,back,name):
+		
+		""" This lists are pairs of possible mismatch in front and back"""
 		pair_front_f = [0,2,8,6]
 		pair_front_s = [2,8,6,0]
 		pair_back_f = [2,0,6,8]
 		pair_back_s = [0,6,8,2]
+
+		#move to get proper corner according to number
+		#0- pair in upper layer, 1-pair in right side .... 
 		move = [up,right,down,left]
 		move_name = [name['u'],name['r'],name['d'],name['l']]
 
 		for i in range(4):
+			#if corners are not set in front at ith pair
 			if front_face[pair_front_f[i]] != front_face[4] and front_face[pair_front_s[i]] != front_face[4]:
-				if back_face[pair_back_f[i]] != front_face[4] and back_face[pair_back_s[i]] != front_face[i]:
+				#if corners are not present as front in ith pair then it must be in opposite side as only rotation of 180* allowed
+				if back_face[pair_back_f[i]] != front_face[4] and back_face[pair_back_s[i]] != front_face[4]:
+					# make pair in front and back at same layer
 					back()
 					back()
 					self.ans.extend([name['b'],name['b']])
@@ -37,13 +52,15 @@ class third_phase(mycube):
 				move[i]()
 				move[i]()
 				self.ans.extend([move_name[i],move_name[i]])
+		# print('in---------------------------')
 		# self.print_cube_with_faces()
+		# print(self.ans)
 
 
 
 
 	def set_corners_acc_center(self):
-		
+	
 		self.set_corner_of_face(self.front,self.back,self.u,self.d,self.l,self.r,self.f,self.b,{'u':'u','d':'d','l':'l','r':'r','f':'f','b':'b'})
 		self.set_corner_of_face(self.right,self.left,self.u,self.d,self.f,self.b,self.r,self.l,{'u':'u','d':'d','l':'f','r':'b','f':'r','b':'l'})
 
@@ -149,6 +166,7 @@ class third_phase(mycube):
 			elif 5 in bad_edges[5] and 7 in bad_edges[5]:
 			elif 1 in bad_edges[5] and 3 in bad_edges[5]:
 	
+	
 	def check_algo2(self):
 		edge_move = [{1:self.d2,3:self.r2},{1:self.d2,3:self.b2},{1:self.f2,3:self.r2}]
 		face_function_name = {self.front:'f2',self.back:'b2',self.left:'l2',self.right:'r2',self.up:'u2',self.down:'d2'}
@@ -237,17 +255,6 @@ class third_phase(mycube):
 		elif (self.right[5] != self.right[4] and self.back[3] != self.back[4] and self.front[3] != self.front[5] and self.left[3] != self.left[5]):
 			self.algo3(self.b2,self.mc1,self.mc,['b2','mc1','mc'])
 
-
-
-
-
-	def algo3(self,front2,middle_layer1,middle_layer,move_names):
-		front2()
-		middle_layer1()
-		front2()
-		middle_layer()
-		self.ans.extend([move_names[0],move_names[1],move_names[0],move_names[2]])
-
 	def check_algo4(self):
 
 		if self.front[1]!=self.front[4]  and self.back[1]!=self.back[4]:
@@ -274,6 +281,20 @@ class third_phase(mycube):
 			if (self.up[1]!=self.up[4] and self.down[7]!=self.down[4]) or (self.up[7]!=self.up[4] and self.down[1]!=self.down[4]):
 				self.algo4(self.f,'b',3)
 
+	def check_algo5(self):
+		
+		bad_edges = self.get_bad_edges()
+		# bad_edges = sorted(bad_edges)
+
+		possible_faces = {1:[[2,3,4],'f',[5,8,9],'u'],2:[[1,3,4],'f',[5,6,10],'r'],3:[[1,2,4],'f',[6,7,11],'d'],4:[[1,2,3],'f',[7,8,12],'l'],5:[[2,6,10],'r',[1,8,9],'u'],6:[[7,11,3],'d',[5,2,10],'r'],7:[[4,8,12],'l',[3,6,11],'d'],8:[[1,5,9],'u',[4,7,12],'l'],9:[[10,11,12],'b',[1,5,8],'u'],10:[[9,11,12],'b',[2,5,6],'r'],11:[[9,10,12],'b',[3,6,7],'d'],12:[[9,10,11],'b',[4,7,8],'l']}
+		fourth_edge ={1:[3,9],2:[4,10],3:[1,11],4:[2,12],5:[6,]6:7:8:9:10:11:12}
+
+		for edge in bad_edges:
+
+
+		for i in range(1,13):
+			for j in possible_faces[i][0]:
+
 
 	def algo1(self,up_fun,right_fun,up_fun_name,right_fun_name):
 		for x in range(0,3):
@@ -297,6 +318,13 @@ class third_phase(mycube):
 				self.mc2()
 				self.ans.append('mc2')
 		
+	def algo3(self,front2,middle_layer1,middle_layer,move_names):
+		front2()
+		middle_layer1()
+		front2()
+		middle_layer()
+		self.ans.extend([move_names[0],move_names[1],move_names[0],move_names[2]])
+
 	def algo4(self,up_fun,up_fun_name,middle_layer):
 		middle_layer_fun = None
 		if middle_layer == 1:
@@ -318,10 +346,3 @@ class third_phase(mycube):
 		up_fun()
 		middle_layer_fun()
 		self.ans.extend([middle_layer_fun_name,up_fun_name,middle_layer_fun_name,up_fun_name,up_fun_name,middle_layer_fun_name,up_fun_name,middle_layer_fun_name])
-
-
-	def get_bad_edges_on_face(self,face):
-		ans = []
-		for i in [1,3,5,7]:
-			if face[i] != face[4]
-				ans.append(i)
