@@ -17,6 +17,16 @@ class third_phase(mycube):
 		self.set_corners_acc_center()
 		print('-------------------------------------------- All corner set -------------------------------------------------')
 		self.print_cube_with_faces()
+
+		#3B start
+		checking_functions = [self.check_algo1,self.check_algo2,self.check_algo3,self.check_algo4,self.check_algo5,self.check_algo6]
+		while True:
+			if self.is_solved():
+				break
+			else:
+				for fun in checking_functions:
+					if fun() == True:
+						break
 		
 		return(self.ans)
 
@@ -65,89 +75,7 @@ class third_phase(mycube):
 		self.set_corner_of_face(self.right,self.left,self.u,self.d,self.f,self.b,self.r,self.l,{'u':'u','d':'d','l':'f','r':'b','f':'r','b':'l'})
 
 	def check_algo1(self):
-		face_edge_fun = { 'front':{1:self.u2,3:self.l2,5:self.r2,7:self.d2},
-						  'back':{1:self.u2,3:self.r2,5:self.l2,7:self.d2},
-						   'up':{1:self.b2,3:self.l2,5:self.r2,7:self.f2},
-						  'down':{1:self.f2,3:self.l2,5:self.r2,7:self.b2},
-						  'left':{1:self.u2,3:self.b2,5:self.f2,7:self.d2},
-						  'right':{1:self.u2,3:self.f2,5:self.b2,7:self.d2},
-						}
-		faces = [self.front,self.back,self.left,self.right,self.up,self.down]
-		faces2 = ['front','back','left','right','up','down']
-		function_name = {self.f2:'f2',self.b2:'b2',self.l2:'l2',self.r2:'r2',self.u2:'u2',self.d2:'d2'}
-		i=0
-		for face in faces:
-			bad_edges[i] = self.get_bad_edges_on_face(face)
-			i+=1
-		#well this for loop works for checking front-back and left-right but not up-down(for that below is the if conditoins)
-		for i in range(0,4,2):
-			if 1 in bad_edges[i] and 3 in bad_edges[i]:
-				if 1 in bad_edges[i+1] and 5 in bad_edges[i+1]:
-					up_function = face_edge_fun[faces2[i]][1]
-					right_function = face_edge_fun[faces2[i]][3]
-					up_function_name = function_name[up_function]
-					right_function_name = function_name[right_function]
-					self.algo1(up_function,right_function,up_function_name,right_function_name)
-				
-
-			elif 1 in bad_edges[i] and 5 in bad_edges[i]:
-				if 1 in bad_edges[i+1] and 3 in bad_edges[i+1]:
-					up_function = face_edge_fun[faces2[i]][1]
-					right_function = face_edge_fun[faces2[i]][5]
-					up_function_name = function_name[up_function]
-					right_function_name = function_name[right_function]
-					self.algo1(up_function,right_function,up_function_name,right_function_name)
-				
-			elif 3 in bad_edges[i] and 7 in bad_edges[i] :
-				if 5 in bad_edges[i+1] and 7 in bad_edges[i+1]:
-					up_function = face_edge_fun[faces2[i]][7]
-					right_function = face_edge_fun[faces2[i]][3]
-					up_function_name = function_name[up_function]
-					right_function_name = function_name[right_function]
-					self.algo1(up_function,right_function,up_function_name,right_function_name)
-				
-			elif 5 in bad_edges[i] and 7 in bad_edges[i] :
-				if 3 in bad_edges[i+1] and 7 in bad_edges[i+1]:
-					up_function = face_edge_fun[faces2[i]][7]
-					right_function = face_edge_fun[faces2[i]][5]
-					up_function_name = function_name[up_function]
-					right_function_name = function_name[right_function]
-					self.algo1(up_function,right_function,up_function_name,right_function_name)
-				
-
-		if 1 in bad_edges[4] and 3 in bad_edges[4]:
-			if 3 in bad_edges[5] and 7 in bad_edges[5]:
-				up_function = face_edge_fun[faces2[4]][1]
-				right_function = face_edge_fun[faces2[4]][3]
-				up_function_name = function_name[up_function]
-				right_function_name = function_name[right_function]
-				self.algo1(up_function,right_function,up_function_name,right_function_name)
-			
-		elif 1 in bad_edges[4] and 5 in bad_edges[4] :
-			if 5 in bad_edges[5] and 7 in bad_edges[5]:
-				up_function = face_edge_fun[faces2[4]][1]
-				right_function = face_edge_fun[faces2[4]][5]
-				up_function_name = function_name[up_function]
-				right_function_name = function_name[right_function]
-				self.algo1(up_function,right_function,up_function_name,right_function_name)
-			
-		elif 3 in bad_edges[4] and 7 in bad_edges[4] :
-			if 1 in bad_edges[5] and 3 in bad_edges[5]:
-				up_function = face_edge_fun[faces2[i]][7]
-				right_function = face_edge_fun[faces2[i]][3]
-				up_function_name = function_name[up_function]
-				right_function_name = function_name[right_function]
-				self.algo1(up_function,right_function,up_function_name,right_function_name)
-			
-		elif 5 in bad_edges[4] and 7 in bad_edges[4] :
-			if 1 in bad_edges[5] and 5 in bad_edges[5]:
-				up_function = face_edge_fun[faces2[i]][7]
-				right_function = face_edge_fun[faces2[i]][5]
-				up_function_name = function_name[up_function]
-				right_function_name = function_name[right_function]
-				self.algo1(up_function,right_function,up_function_name,right_function_name)
-
-	def check_algo5(self):
+		return_value = False
 		face_edge_fun = { 'front':{1:self.u2,3:self.l2,5:self.r2,7:self.d2},
 						  'back':{1:self.u2,3:self.r2,5:self.l2,7:self.d2},
 						   'up':{1:self.b2,3:self.l2,5:self.r2,7:self.f2},
@@ -164,127 +92,212 @@ class third_phase(mycube):
 			i+=1
 
 		a=b=0
+		flag = False
+		#well this for loop works for checking front-back and left-right but not up-down(for that below is the if conditoins)
+		for i in range(0,4,2):
+			flag = False
+			if 1 in bad_edges[i] and 3 in bad_edges[i]:
+				if 1 in bad_edges[i+1] and 5 in bad_edges[i+1]:
+					a=1
+					b=3
+					flag = True
+
+			elif 1 in bad_edges[i] and 5 in bad_edges[i]:
+				if 1 in bad_edges[i+1] and 3 in bad_edges[i+1]:
+					a=1
+					b=5
+					flag = True
+				
+			elif 3 in bad_edges[i] and 7 in bad_edges[i] :
+				if 5 in bad_edges[i+1] and 7 in bad_edges[i+1]:
+					a=7
+					b=3
+					flag = True
+				
+			elif 5 in bad_edges[i] and 7 in bad_edges[i] :
+				if 3 in bad_edges[i+1] and 7 in bad_edges[i+1]:
+					a=7
+					b=5
+					flag = True
+			
+			if flag:
+				up_function = face_edge_fun[faces2[i]][a]
+				right_function = face_edge_fun[faces2[i]][b]
+				up_function_name = function_name[up_function]
+				right_function_name = function_name[right_function]
+				self.algo1(up_function,right_function,up_function_name,right_function_name)
+				return_value = True
+				
+
+		if 1 in bad_edges[4] and 3 in bad_edges[4]:
+			if 3 in bad_edges[5] and 7 in bad_edges[5]:
+				a=1
+				b=3
+				flag = True
+			
+		elif 1 in bad_edges[4] and 5 in bad_edges[4] :
+			if 5 in bad_edges[5] and 7 in bad_edges[5]:
+				a = 1
+				b = 5
+				flag = True
+			
+		elif 3 in bad_edges[4] and 7 in bad_edges[4] :
+			if 1 in bad_edges[5] and 3 in bad_edges[5]:
+				a = 7
+				b = 3
+				flag = True
+			
+		elif 5 in bad_edges[4] and 7 in bad_edges[4] :
+			if 1 in bad_edges[5] and 5 in bad_edges[5]:
+				a = 7
+				b = 5
+				flag = True
+		
+		if flag:
+			up_function = face_edge_fun[faces2[4]][a]
+			right_function = face_edge_fun[faces2[4]][b]
+			up_function_name = function_name[up_function]
+			right_function_name = function_name[right_function]
+			self.algo1(up_function,right_function,up_function_name,right_function_name)
+			return_value = True
+		return return_value
+
+	def check_algo6(self):
+		return_value = False
+		face_edge_fun = { 'front':{1:self.u2,3:self.l2,5:self.r2,7:self.d2},
+						  'back':{1:self.u2,3:self.r2,5:self.l2,7:self.d2},
+						   'up':{1:self.b2,3:self.l2,5:self.r2,7:self.f2},
+						  'down':{1:self.f2,3:self.l2,5:self.r2,7:self.b2},
+						  'left':{1:self.u2,3:self.b2,5:self.f2,7:self.d2},
+						  'right':{1:self.u2,3:self.f2,5:self.b2,7:self.d2},
+						}
+		faces = [self.front,self.back,self.left,self.right,self.up,self.down]
+		faces2 = ['front','back','left','right','up','down']
+		function_name = {self.f2:'f2',self.b2:'b2',self.l2:'l2',self.r2:'r2',self.u2:'u2',self.d2:'d2'}
+		i=0
+		for face in faces:
+			bad_edges[i] = self.get_bad_edges_on_face(face)
+			i+=1
+
+		a=b=0
+		flag = False
 		#TODO USE a,b
 		for i in range(0,4,2):
 			if 1 in bad_edges[i] and 3 in bad_edges[i]:
 				
 				if (1 in bad_edges[i+1] and 3 in bad_edges[i+1]):
-					up_function = face_edge_fun[faces2[i]][1]
-					right_function = face_edge_fun[faces2[i]][4]
-					up_function_name = function_name[up_function]
-					right_function_name = function_name[right_function]
-					self.algo1(up_function,right_function,up_function_name,right_function_name)
+					a = 1
+					b = 4
+					flag = True
+					
 				elif 5 in bad_edges[i+1] and 7 in bad_edges[i+1]:
-					up_function = face_edge_fun[faces2[i]][3]
-					right_function = face_edge_fun[faces2[i]][4]
-					up_function_name = function_name[up_function]
-					right_function_name = function_name[right_function]
-					self.algo1(up_function,right_function,up_function_name,right_function_name)
+					a = 3
+					b = 4
+					flag = True
 
 			elif 1 in bad_edges[i] and 5 in bad_edges[i]:
 				
 				if (1 in bad_edges[i+1] and 5 in bad_edges[i+1]):
-					up_function = face_edge_fun[faces2[i]][1]
-					right_function = face_edge_fun[faces2[i]][4]
-					up_function_name = function_name[up_function]
-					right_function_name = function_name[right_function]
-					self.algo1(up_function,right_function,up_function_name,right_function_name)
+					a = 1
+					b = 4
+					flag = True
 				elif 3 in bad_edges[i+1] and 7 in bad_edges[i+1]:
-					up_function = face_edge_fun[faces2[i]][5]
-					right_function = face_edge_fun[faces2[i]][4]
-					up_function_name = function_name[up_function]
-					right_function_name = function_name[right_function]
-					self.algo1(up_function,right_function,up_function_name,right_function_name)
+					a = 5
+					b = 4
+					flag = True
 
 			elif 3 in bad_edges[i] and 7 in bad_edges[i] :
 				
 				if (1 in bad_edges[i+1] and 5 in bad_edges[i+1]):
-					up_function = face_edge_fun[faces2[i]][3]
-					right_function = face_edge_fun[faces2[i]][4]
-					up_function_name = function_name[up_function]
-					right_function_name = function_name[right_function]
-					self.algo1(up_function,right_function,up_function_name,right_function_name)
+					a = 3
+					b = 4
+					flag = True
+					
 				elif 3 in bad_edges[i+1] and 7 in bad_edges[i+1]:
-					up_function = face_edge_fun[faces2[i]][7]
-					right_function = face_edge_fun[faces2[i]][4]
-					up_function_name = function_name[up_function]
-					right_function_name = function_name[right_function]
-					self.algo1(up_function,right_function,up_function_name,right_function_name)
+					a = 7
+					b = 4
+					flag = True
 
 			elif 5 in bad_edges[i] and 7 in bad_edges[i] :
 
 				if (1 in bad_edges[i+1] and 3 in bad_edges[i+1]):
-					up_function = face_edge_fun[faces2[i]][5]
-					right_function = face_edge_fun[faces2[i]][4]
-					up_function_name = function_name[up_function]
-					right_function_name = function_name[right_function]
-					self.algo1(up_function,right_function,up_function_name,right_function_name)
+					a = 5
+					b = 4
+					flag = True
+
 				elif 5 in bad_edges[i+1] and 7 in bad_edges[i+1]:
-					up_function = face_edge_fun[faces2[i]][7]
-					right_function = face_edge_fun[faces2[i]][4]
-					up_function_name = function_name[up_function]
-					right_function_name = function_name[right_function]
-					self.algo1(up_function,right_function,up_function_name,right_function_name)
+					a = 7
+					b = 4
+					flag = True
+
+			if flag:
+				up_function = face_edge_fun[faces2[i]][a]
+				right_function = face_edge_fun[faces2[i]][b]
+				up_function_name = function_name[up_function]
+				right_function_name = function_name[right_function]
+				self.algo1(up_function,right_function,up_function_name,right_function_name)
+				return_value = True
 
 		if 1 in bad_edges[4] and 3 in bad_edges[4]:
 			
 			if 1 in bad_edges[5] and 3 in bad_edges[5]:
-				up_function = face_edge_fun[faces2[i]][3]
-				right_function = face_edge_fun[faces2[i]][4]
-				up_function_name = function_name[up_function]
-				right_function_name = function_name[right_function]
-				self.algo1(up_function,right_function,up_function_name,right_function_name)
+				a = 3
+				b = 4
+				flag = True
+				
 			elif 5 in bad_edges[5] and 7 in bad_edges[5]:
-				up_function = face_edge_fun[faces2[i]][1]
-				right_function = face_edge_fun[faces2[i]][4]
-				up_function_name = function_name[up_function]
-				right_function_name = function_name[right_function]
-				self.algo1(up_function,right_function,up_function_name,right_function_name)
+				a = 1
+				b = 4
+				flag = True
 
 		elif 1 in bad_edges[4] and 5 in bad_edges[4] :
 			
 			if 1 in bad_edges[5] and 5 in bad_edges[5]:
-				up_function = face_edge_fun[faces2[i]][5]
-				right_function = face_edge_fun[faces2[i]][4]
-				up_function_name = function_name[up_function]
-				right_function_name = function_name[right_function]
-				self.algo1(up_function,right_function,up_function_name,right_function_name)
+				a = 5
+				b = 4
+				flag = True
+				
 			elif 3 in bad_edges[5] and 7 in bad_edges[5]:
-				up_function = face_edge_fun[faces2[i]][1]
-				right_function = face_edge_fun[faces2[i]][4]
-				up_function_name = function_name[up_function]
-				right_function_name = function_name[right_function]
-				self.algo1(up_function,right_function,up_function_name,right_function_name)
+				a = 1
+				b = 4
+				flag = True
+				
 		elif 3 in bad_edges[4] and 7 in bad_edges[4] :
 			
 			if 1 in bad_edges[5] and 5 in bad_edges[5]:
-				up_function = face_edge_fun[faces2[i]][7]
-				right_function = face_edge_fun[faces2[i]][4]
-				up_function_name = function_name[up_function]
-				right_function_name = function_name[right_function]
-				self.algo1(up_function,right_function,up_function_name,right_function_name)
+				a = 7
+				b = 4
+				flag = True
+				
 			elif 3 in bad_edges[5] and 7 in bad_edges[5]:
-				up_function = face_edge_fun[faces2[i]][3]
-				right_function = face_edge_fun[faces2[i]][4]
-				up_function_name = function_name[up_function]
-				right_function_name = function_name[right_function]
-				self.algo1(up_function,right_function,up_function_name,right_function_name)
+				a = 3
+				b = 4
+				flag = True
+				
 		elif 5 in bad_edges[4] and 7 in bad_edges[4] :
 			
 			if 5 in bad_edges[5] and 7 in bad_edges[5]:
-				up_function = face_edge_fun[faces2[i]][5]
-				right_function = face_edge_fun[faces2[i]][4]
-				up_function_name = function_name[up_function]
-				right_function_name = function_name[right_function]
-				self.algo1(up_function,right_function,up_function_name,right_function_name)
+				a = 5
+				b = 4
+				flag = True
+				
 			elif 1 in bad_edges[5] and 3 in bad_edges[5]:
-				up_function = face_edge_fun[faces2[i]][7]
-				right_function = face_edge_fun[faces2[i]][4]
-				up_function_name = function_name[up_function]
-				right_function_name = function_name[right_function]
-				self.algo1(up_function,right_function,up_function_name,right_function_name)
+				a = 7
+				b = 4
+				flag = True
+				
+
+		if flag:
+			up_function = face_edge_fun[faces2[4]][a]
+			right_function = face_edge_fun[faces2[4]][b]
+			up_function_name = function_name[up_function]
+			right_function_name = function_name[right_function]
+			self.algo1(up_function,right_function,up_function_name,right_function_name)
+			return_value = True
+		return return_value
 
 	def check_algo2(self):
+		return_value = False
 		edge_move = [{1:self.d2,3:self.r2},{1:self.d2,3:self.b2},{1:self.f2,3:self.r2}]
 		face_function_name = {self.front:'f2',self.back:'b2',self.left:'l2',self.right:'r2',self.up:'u2',self.down:'d2'}
 		edge_middle_move = [{1:1,3:3},{1:2,3:3},{1:1,3:2}]
@@ -293,113 +306,148 @@ class third_phase(mycube):
 			if f[1] != face_color[f] and b[1] != face_color[b]:
 				if f[7] != face_color[f] and b[7] != face_color[b]:
 					self.algo2(edge_move[i][1],face_function_name[edge_move[i][1]],edge_middle_move[i][1])
+					return_value = True
 			elif f[3] != face_color[f] and b[3] != face_color[b]:
 				if f[5] != face_color[f] and b[5] != face_color[b]:
 					self.algo2(edge_move[i][3],face_function_name[edge_move[i][3]],edge_middle_move[i][3])
+					return_value = True
+		return return_value
 
 	def check_algo3(self):
 
-
+		return_value = False
 		if (self.front[7] != self.front[4] and self.down[1] != self.down[4] and self.back[1] != self.back[4]  and self.up[7] != self.up[4]):
 			self.algo3(self.f2,self.mf1,self.mf,['f2','mf1','mf'])
+			return_value = True
 		
 		elif (self.front[7] != self.front[4] and self.down[1] != self.down[4] and self.back[7] != self.back[4] and self.up[1] != self.up[4]):
 			self.algo3(self.d2,self.mf,self.mf1,['d2','mf','mf1'])
+			return_value = True
 
 		elif (self.front[1] != self.front[4] and self.up[7] != self.up[4] and self.down[1] != self.down[4] and self.back[7] != self.back[4]):
 			self.algo3(self.f2,self.mf,self.mf1,['f2','mf','mf1'])
+			return_value = True
 
 		elif (self.front[1] != self.front[4] and self.up[7] != self.up[4] and  self.down[7] != self.down[4] and self.back[1] != self.back[4]):
 			self.algo3(self.u2,self.mf1,self.mf,['u2','mf1','mf'])
+			return_value = True
 
 		elif (self.up[1] != self.up[4] and self.back[1] != self.back[4] and self.front[7] != self.front[4] and self.down[7] != self.down[4]):
 			self.algo3(self.b2,self.mf1,self.mf,['u2','mf1','mf'])
+			return_value = True
 		
 		elif (self.up[1] != self.up[4] and self.back[1] != self.back[4] and self.front[1] != self.front[4] and self.down[1] != self.down[4]):
 			self.algo3(self.u2,self.mf,self.mf1,['u2','mf','mf1'])
+			return_value = True
 		
 		elif (self.down[7] != self.down[4] and self.back[7] != self.back[4] and self.front[7] != self.front[4] and self.up[7] != self.up[4]):
 			self.algo3(self.d2,self.mf1,self.mf,['d2','mf1','mf'])
+			return_value = True
 
 		elif (self.down[7] != self.down[4] and self.back[7] != self.back[4] and self.front[1] != self.front[4] and self.up[1] != self.up[4]):
 			self.algo3(self.b2,self.mf,self.mf1,['b2','mf','mf1'])
+			return_value = True
 
 		elif (self.right[7] != self.right[4] and self.down[5] != self.down[4] and self.up[5] != self.up[4] and self.left[1] != self.left[4]):
 			self.algo3(self.r2,self.mr1,self.mr,['r2','mr1','mr'])
+			return_value = True
 
 		elif (self.right[7] != self.right[4] and self.down[5] != self.down[4] and self.up[3] != self.up[4] and self.left[7] != self.left[4]):
 			self.algo3(self.d2,self.mr,self.mr1,['d2','mr','mr1'])
+			return_value = True
 
 		elif (self.right[1] != self.right[4] and self.up[5] != self.up[4] and self.left[1] != self.left[4] and self.down[3] != self.down[4]):
-			self.algo3(self.u2,self.mr1,self.mr,['u2','mr1','mr'])	
+			self.algo3(self.u2,self.mr1,self.mr,['u2','mr1','mr'])
+			return_value = True	
 
 		elif (self.right[1] != self.right[4] and self.up[5] != self.up[4] and self.left[7] != self.left[4] and self.down[5] != self.down[4]):
 			self.algo3(self.r2,self.mr,self.mr1,['u2','mr','mr1'])
+			return_value = True
 
 		elif (self.left[1] != self.left[4] and self.up[3] != self.up[4] and self.right[7] != self.right[4] and self.down[3] != self.down[4]):
 			self.algo3(self.l2,self.mr1,self.mr,['l2','mr1','mr'])
+			return_value = True
 
 		elif (self.left[1] != self.left[4] and self.up[3] != self.up[4] and self.right[1] != self.right[4] and self.down[5] != self.down[4]):
 			self.algo3(self.u2,self.mr,self.mr1,['u2','mr','mr1'])
+			return_value = True
 
 		elif (self.left[7] != self.left[4] and self.down[3] != self.down[4] and self.right[7] != self.right[4] and self.up[5] != self.up[4]):
 			self.algo3(self.d2,self.mr1,self.mr,['d2','mr1','mr'])
+			return_value = True
 		
 		elif (self.left[7] != self.left[4] and self.down[3] != self.down[4] and self.up[3] != self.right[4] and self.right[1] != self.up[4]):
 			self.algo3(self.l2,self.mr,self.mr1,['l2','mr','mr1'])
+			return_value = True
 
 		elif (self.front[5] != self.front[4] and self.right[3] != self.right[4] and self.left[5] != self.left[4] and self.back[5] != self.back[4]):
 			self.algo3(self.f2,self.mc,self.mc1,['f2','mc','mc1'])
+			return_value = True
 
 		elif (self.front[5] != self.front[4] and self.right[3] != self.right[4] and self.back[3] != self.back[4] and self.left[3] != self.left[4]):
 			self.algo3(self.r2,self.mc1,self.mc,['r2','mc1','mc'])
+			return_value = True
 
 		elif (self.front[3] != self.front[4] and self.left[5] != self.left[4] and self.back[5] != self.back[4] and self.right[5] != self.right[4]):
 			self.algo3(self.l2,self.mc,self.mc1,['l2','mc','mc1'])
+			return_value = True
 		
 		elif (self.front[3] != self.front[4] and self.left[5] != self.left[4] and self.back[3] != self.back[4] and self.right[3] != self.right[4]):
 			self.algo3(self.f2,self.mc1,self.mc,['f2','mc1','mc'])
+			return_value = True
 
 		elif (self.left[3] != self.left[4] and self.back[5] != self.back[4] and self.right[5] != self.right[5] and self.front[5] != self.front[4]):
 			self.algo3(self.b2,self.mc,self.mc1,['b2','mc','mc1'])
+			return_value = True
 
 		elif (self.left[3] != self.left[4] and self.back[5] != self.back[4] and self.right[3] != self.right[5] and self.front[3] != self.front[4]):
 			self.algo3(self.l2,self.mc1,self.mc,['l2','mc1','mc'])
+			return_value = True
 
 		elif (self.right[5] != self.right[4] and self.back[3] != self.back[4] and self.front[5] != self.front[5] and self.left[5] != self.left[5]):
 			self.algo3(self.r2,self.mc,self.mc1,['r2','mc','mc1'])
+			return_value = True
 
 		elif (self.right[5] != self.right[4] and self.back[3] != self.back[4] and self.front[3] != self.front[5] and self.left[3] != self.left[5]):
 			self.algo3(self.b2,self.mc1,self.mc,['b2','mc1','mc'])
+			return_value = True
+		return return_value
 
 	def check_algo4(self):
-
+		return_value = False
 		if self.front[1]!=self.front[4]  and self.back[1]!=self.back[4]:
 			if (self.right[1]!=self.right[4] and self.left[1]!=self.left[4]) or (self.right[7]!=self.right[4] and self.left[7]!=self.left[4]):
 				self.algo4(self.u,'u',1)
+				return_value = True
 
 		elif self.front[7]!=self.front[4] and self.back[7]!=self.back[4]:
 			if  (self.right[7]!=self.right[4]  and self.left[7]!=self.left[4]) or (self.right[1]!=self.right[4]  and self.left[1]!=self.left[4]):
 				self.algo4(self.d,'d',1)
+				return_value = True
 
 		elif self.front[5]!=self.front[4]  and self.back[3]!=self.back[4] :
 			if (self.up[5]!=self.up[4] and self.down[5]!=self.down[4]) or (self.up[3]!=self.up[4] and self.down[3]!=self.down[4]):
 				self.algo4(self.r,'r',2)
+				return_value = True
 
 		elif self.front[3]!=self.front[4]  and self.back[5]!=self.back[4] and self.down[3]!=self.down[4]:
 			if (self.up[3]!=self.up[4] and self.down[3]!=self.down[4]) or (self.up[5]!=self.up[4] and self.down[5]!=self.down[4]):
 				self.algo4(self.l,'l',2)
+				return_value = True
 		
 		elif self.right[3]!=self.right[4]  and self.left[5]!=self.left[4] :
 			if (self.up[7]!=self.up[4] and self.down[1]!=self.down[4]) or (self.up[1]!=self.up[4] and self.down[7]!=self.down[4]):
 				self.algo4(self.f,'f',3)
+				return_value = True
 		
 		elif self.right[5]!=self.right[4] and self.left[3]!=self.left[4] :
 			if (self.up[1]!=self.up[4] and self.down[7]!=self.down[4]) or (self.up[7]!=self.up[4] and self.down[1]!=self.down[4]):
 				self.algo4(self.f,'b',3)
-
+				return_value = True
+		return return_value
 	def check_algo5(self):
 		
+		return_value = False
 		bad_edges = self.get_bad_edges()
 		bad_edges = set(bad_edges)
 		all_edges = set(range(1,13))
@@ -421,6 +469,7 @@ class third_phase(mycube):
 
 					moves[edge][possible_faces[edge][1]][0]()
 					self.ans.append(move_name[edge][possible_faces[edge][1]][0])
+					return_value = True
 				elif fourth_edge[edge][possible_faces[edge][1]][1] in bad_edges:
 					moves[edge][possible_faces[edge][1]][1]()
 					self.ans.append(move_name[edge][possible_faces[edge][1]][1])
@@ -431,6 +480,7 @@ class third_phase(mycube):
 					self.ans.append(move_name[edge][possible_faces[edge][1]][0])
 					moves[edge][possible_faces[edge][1]][1]()
 					self.ans.append(move_name[edge][possible_faces[edge][1]][1])
+					return_value = True
 
 			elif set(possible_faces[edge][2]).issubset(bad_edges):
 				
@@ -440,6 +490,7 @@ class third_phase(mycube):
 
 					moves[edge][possible_faces[edge][3]][0]()
 					self.ans.append(move_name[edge][possible_faces[edge][3]][0])
+					return_value = True
 				elif fourth_edge[edge][possible_faces[edge][3]][1] in bad_edges:
 					moves[edge][possible_faces[edge][3]][1]()
 					self.ans.append(move_name[edge][possible_faces[edge][3]][1])
@@ -450,6 +501,8 @@ class third_phase(mycube):
 					self.ans.append(move_name[edge][possible_faces[edge][3]][0])
 					moves[edge][possible_faces[edge][1]][1]()
 					self.ans.append(move_name[edge][possible_faces[edge][3]][1])
+					return_value = True
+		return return_value
 
 	def algo1(self,up_fun,right_fun,up_fun_name,right_fun_name):
 		for x in range(0,3):

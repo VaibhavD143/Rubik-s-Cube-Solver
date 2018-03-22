@@ -264,3 +264,13 @@ class mycube():
 			if self.down[i] not in ['r','o']:
 				unset['down'].append(i)
 		return unset
+
+	def is_solved(self):
+		faces = [self.front,self.back,self.left,self.right,self.up.self.down]
+
+		for face in faces:
+			for 1 in xrange(0,9):
+				if face[i] != face[4]:
+					return False
+
+		return True
