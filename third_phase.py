@@ -307,7 +307,7 @@ class third_phase(mycube):
 		return_value = False
 		edge_move = [{1:self.d2,3:self.r2},{1:self.d2,3:self.b2},{1:self.f2,3:self.r2}]
 		edge_move_name = [{1:'d2',3:'r2'},{1:'d2',3:'b2'},{1:'f2',3:'r2'}]
-		face_function_name = {self.front:'f2',self.back:'b2',self.left:'l2',self.right:'r2',self.up:'u2',self.down:'d2'}
+		# face_function_name = {self.front:'f2',self.back:'b2',self.left:'l2',self.right:'r2',self.up:'u2',self.down:'d2'}
 		edge_middle_move = [{1:1,3:3},{1:2,3:3},{1:1,3:2}]
 		i = 0
 		for f,b in face_pairs.items:
