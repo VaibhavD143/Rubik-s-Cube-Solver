@@ -20,6 +20,7 @@ class third_phase(mycube):
 
 		#3B start
 		checking_functions = [self.check_algo1,self.check_algo2,self.check_algo3,self.check_algo4,self.check_algo5,self.check_algo6]
+		# checking_functions = [self.check_algo1,self.check_algo5,self.check_algo6]
 		while True:
 			if self.is_solved():
 				break
@@ -35,6 +36,7 @@ class third_phase(mycube):
 		for i in [1,3,5,7]:
 			if face[i] != face[4]:
 				ans.append(i)
+		return ans
 	
 	def set_corner_of_face(self,front_face,back_face,up,down,left,right,front,back,name):
 		
@@ -87,6 +89,7 @@ class third_phase(mycube):
 		faces2 = ['front','back','left','right','up','down']
 		function_name = {self.f2:'f2',self.b2:'b2',self.l2:'l2',self.r2:'r2',self.u2:'u2',self.d2:'d2'}
 		i=0
+		bad_edges = [0]*len(faces)
 		for face in faces:
 			bad_edges[i] = self.get_bad_edges_on_face(face)
 			i+=1
@@ -163,6 +166,7 @@ class third_phase(mycube):
 		return return_value
 
 	def check_algo6(self):
+		#line 240function for edge 4 remaining
 		return_value = False
 		face_edge_fun = { 'front':{1:self.u2,3:self.l2,5:self.r2,7:self.d2},
 						  'back':{1:self.u2,3:self.r2,5:self.l2,7:self.d2},
@@ -175,6 +179,8 @@ class third_phase(mycube):
 		faces2 = ['front','back','left','right','up','down']
 		function_name = {self.f2:'f2',self.b2:'b2',self.l2:'l2',self.r2:'r2',self.u2:'u2',self.d2:'d2'}
 		i=0
+		bad_edges = [0]*len(faces)
+
 		for face in faces:
 			bad_edges[i] = self.get_bad_edges_on_face(face)
 			i+=1
@@ -297,6 +303,7 @@ class third_phase(mycube):
 		return return_value
 
 	def check_algo2(self):
+		#change key of dict
 		return_value = False
 		edge_move = [{1:self.d2,3:self.r2},{1:self.d2,3:self.b2},{1:self.f2,3:self.r2}]
 		face_function_name = {self.front:'f2',self.back:'b2',self.left:'l2',self.right:'r2',self.up:'u2',self.down:'d2'}
