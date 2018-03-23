@@ -166,14 +166,14 @@ class third_phase(mycube):
 		return return_value
 
 	def check_algo6(self):
-		#line 240function for edge 4 remaining
+		
 		return_value = False
-		face_edge_fun = { 'front':{1:self.u2,3:self.l2,5:self.r2,7:self.d2},
-						  'back':{1:self.u2,3:self.r2,5:self.l2,7:self.d2},
-						   'up':{1:self.b2,3:self.l2,5:self.r2,7:self.f2},
-						  'down':{1:self.f2,3:self.l2,5:self.r2,7:self.b2},
-						  'left':{1:self.u2,3:self.b2,5:self.f2,7:self.d2},
-						  'right':{1:self.u2,3:self.f2,5:self.b2,7:self.d2},
+		face_edge_fun = { 'front':{1:self.u2,3:self.l2,5:self.r2,7:self.d2,4:self.f2},
+						  'back':{1:self.u2,3:self.r2,5:self.l2,7:self.d2,4:self.b2},
+						   'up':{1:self.b2,3:self.l2,5:self.r2,7:self.f2,4:self.u2},
+						  'down':{1:self.f2,3:self.l2,5:self.r2,7:self.b2,4:self.d2},
+						  'left':{1:self.u2,3:self.b2,5:self.f2,7:self.d2,4:self.l2},
+						  'right':{1:self.u2,3:self.f2,5:self.b2,7:self.d2,4:self.r2},
 						}
 		faces = [self.front,self.back,self.left,self.right,self.up,self.down]
 		faces2 = ['front','back','left','right','up','down']
@@ -187,7 +187,7 @@ class third_phase(mycube):
 
 		a=b=0
 		flag = False
-		#TODO USE a,b
+		
 		for i in range(0,4,2):
 			if 1 in bad_edges[i] and 3 in bad_edges[i]:
 				
@@ -303,21 +303,23 @@ class third_phase(mycube):
 		return return_value
 
 	def check_algo2(self):
-		#change key of dict
+		
 		return_value = False
 		edge_move = [{1:self.d2,3:self.r2},{1:self.d2,3:self.b2},{1:self.f2,3:self.r2}]
+		edge_move_name = [{1:'d2',3:'r2'},{1:'d2',3:'b2'},{1:'f2',3:'r2'}]
 		face_function_name = {self.front:'f2',self.back:'b2',self.left:'l2',self.right:'r2',self.up:'u2',self.down:'d2'}
 		edge_middle_move = [{1:1,3:3},{1:2,3:3},{1:1,3:2}]
 		i = 0
 		for f,b in face_pairs.items:
-			if f[1] != face_color[f] and b[1] != face_color[b]:
-				if f[7] != face_color[f] and b[7] != face_color[b]:
-					self.algo2(edge_move[i][1],face_function_name[edge_move[i][1]],edge_middle_move[i][1])
+			if f[1] != f[4] and b[1] != b[4]:
+				if f[7] != f[4] and b[7] != b[4]:
+					self.algo2(edge_move[i][1],edge_move_name[i][1],edge_middle_move[i][1])
 					return_value = True
 			elif f[3] != face_color[f] and b[3] != face_color[b]:
 				if f[5] != face_color[f] and b[5] != face_color[b]:
-					self.algo2(edge_move[i][3],face_function_name[edge_move[i][3]],edge_middle_move[i][3])
+					self.algo2(edge_move[i][3],edge_move_name[i][3],edge_middle_move[i][3])
 					return_value = True
+			i+=1
 		return return_value
 
 	def check_algo3(self):
