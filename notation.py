@@ -164,6 +164,43 @@ class mycube():
 		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 
+	def mf(self):
+		self.l()
+		self.r1()
+
+	def mf2(self):
+		self.l2()
+		self.r2()
+	
+	def mf1(self):
+		self.l1()
+		self.r()
+
+	def mr(self):
+		self.f()
+		self.b1()
+
+	def mr2(self):
+		self.f2()
+		self.b2()
+
+	def mr1(self):
+		self.f1()
+		self.b()
+
+	def mc(self):
+		self.u()
+		self.d1()
+
+	def mc2(self):
+		self.u2()
+		self.d2()
+
+	def mc1(self):
+		self.u1()
+		self.d()
+
+
 	#it 'll give current colors of all the corners with respect to X-axis,Y-axis,Z-axis
 	def get_corner(self,no):
 		if no == 1:
