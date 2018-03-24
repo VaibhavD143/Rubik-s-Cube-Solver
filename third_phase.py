@@ -17,15 +17,18 @@ class third_phase(mycube):
 		self.set_corners_acc_center()
 		print('-------------------------------------------- All corner set -------------------------------------------------')
 		self.print_cube_with_faces()
-
+		print(self.ans)
+		print('----------------------------------------- All edge set-----------------------------------------------------')
 		#3B start
 		checking_functions = [self.check_algo1,self.check_algo2,self.check_algo3,self.check_algo4,self.check_algo5,self.check_algo6]
-		# checking_functions = [self.check_algo1,self.check_algo5,self.check_algo6]
+		# checking_functions = [self.check_algo1,self.check_algo3,self.check_algo4,self.check_algo5,self.check_algo6]
 		while True:
 			if self.is_solved():
 				break
 			else:
 				for fun in checking_functions:
+					print("------------------position--------------------------")
+					self.print_cube_with_faces()
 					if fun() == True:
 						break
 		
@@ -37,6 +40,13 @@ class third_phase(mycube):
 			if face[i] != face[4]:
 				ans.append(i)
 		return ans
+
+	def is_corner_set(self):
+		faces = [self.front,self.right,self.up]
+		for face in faces:
+			if face[0] != face[4] or face[2] != face[4] or face[6] != face[4] or face[8] != face[4]:
+				return True
+		return False
 	
 	def set_corner_of_face(self,front_face,back_face,up,down,left,right,front,back,name):
 		
@@ -51,6 +61,8 @@ class third_phase(mycube):
 		move = [up,right,down,left]
 		move_name = [name['u'],name['r'],name['d'],name['l']]
 
+		flag =0
+
 		for i in range(4):
 			#if corners are not set in front at ith pair
 			if front_face[pair_front_f[i]] != front_face[4] and front_face[pair_front_s[i]] != front_face[4]:
@@ -60,10 +72,14 @@ class third_phase(mycube):
 					back()
 					back()
 					self.ans.extend([name['b'],name['b']])
-				
+				flag = 1
 				move[i]()
 				move[i]()
 				self.ans.extend([move_name[i],move_name[i]])
+		if not flag:
+			move[3]()
+			move[3]()
+			self.ans.extend([move_name[3],move_name[3]])
 		# print('in---------------------------')
 		# self.print_cube_with_faces()
 		# print(self.ans)
@@ -72,9 +88,9 @@ class third_phase(mycube):
 
 
 	def set_corners_acc_center(self):
-	
-		self.set_corner_of_face(self.front,self.back,self.u,self.d,self.l,self.r,self.f,self.b,{'u':'u','d':'d','l':'l','r':'r','f':'f','b':'b'})
-		self.set_corner_of_face(self.right,self.left,self.u,self.d,self.f,self.b,self.r,self.l,{'u':'u','d':'d','l':'f','r':'b','f':'r','b':'l'})
+		while self.is_corner_set():
+			self.set_corner_of_face(self.front,self.back,self.u,self.d,self.l,self.r,self.f,self.b,{'u':'u','d':'d','l':'l','r':'r','f':'f','b':'b'})
+			self.set_corner_of_face(self.right,self.left,self.u,self.d,self.f,self.b,self.r,self.l,{'u':'u','d':'d','l':'f','r':'b','f':'r','b':'l'})
 
 	def check_algo1(self):
 		return_value = False
@@ -309,14 +325,15 @@ class third_phase(mycube):
 		edge_move_name = [{1:'d2',3:'r2'},{1:'d2',3:'b2'},{1:'f2',3:'r2'}]
 		# face_function_name = {self.front:'f2',self.back:'b2',self.left:'l2',self.right:'r2',self.up:'u2',self.down:'d2'}
 		edge_middle_move = [{1:1,3:3},{1:2,3:3},{1:1,3:2}]
+		face_pairs = [[self.front,self.back],[self.left,self.right],[self.up,self.down]]
 		i = 0
-		for f,b in face_pairs.items:
+		for f,b in face_pairs:
 			if f[1] != f[4] and b[1] != b[4]:
 				if f[7] != f[4] and b[7] != b[4]:
 					self.algo2(edge_move[i][1],edge_move_name[i][1],edge_middle_move[i][1])
 					return_value = True
-			elif f[3] != face_color[f] and b[3] != face_color[b]:
-				if f[5] != face_color[f] and b[5] != face_color[b]:
+			elif f[3] != f[4] and b[3] != f[4]:
+				if f[5] != f[4] and b[5] != f[4]:
 					self.algo2(edge_move[i][3],edge_move_name[i][3],edge_middle_move[i][3])
 					return_value = True
 			i+=1
@@ -454,6 +471,7 @@ class third_phase(mycube):
 				self.algo4(self.f,'b',3)
 				return_value = True
 		return return_value
+		
 	def check_algo5(self):
 		
 		return_value = False
@@ -545,13 +563,13 @@ class third_phase(mycube):
 	def algo4(self,up_fun,up_fun_name,middle_layer):
 		middle_layer_fun = None
 		if middle_layer == 1:
-			middle_layer_fun = self.mf2()
+			middle_layer_fun = self.mf2
 			middle_layer_fun_name = 'mf2'
 		elif middle_layer == 2:
-			middle_layer_fun = self.mr2()
+			middle_layer_fun = self.mr2
 			middle_layer_fun_name = 'mr2'
 		elif middle_layer == 3:
-			middle_layer_fun = self.mc2()
+			middle_layer_fun = self.mc2
 			middle_layer_fun_name = 'mc2'
 
 		middle_layer_fun()

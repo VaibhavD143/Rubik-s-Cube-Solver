@@ -74,21 +74,7 @@ class first_phase(mycube):
 				return 'first'
 			moves['u']()
 		
-		# for i in range(4):
-		# 	print("====================================== here",self.get_bad_edges(),back_edge)
-		# 	self.print_cube_with_faces()
-		# 	if self.is_bad_edge(back_edge):
-		# 		try:
-		# 			ans.extend([move_name['b']]*(i))
-		# 		except:
-		# 			pass
-		# 		moves['u']()
-		# 		moves['u']()
-		# 		ans.append(move_name['u'])
-		# 		ans.append(move_name['u'])
-		# 		return 'Second'
-		# 	moves['b']()
-
+		
 		if self.is_bad_edge(bottom_edges[edge_no][0]):
 			moves['r']()
 			moves['r']()
@@ -229,6 +215,7 @@ class first_phase(mycube):
 		
 	def set_ro_corners(self):
 		while(not self.check_ro_corners()):
+
 			flag_upper_line = flag_down_line = flag_up = flag_down =0
 			ro = ['r','o'] 
 			for i in [self.front,self.right,self.back,self.left]:
@@ -317,7 +304,7 @@ class first_phase(mycube):
 					elif unset_corners[0] == 2:
 						self.f2()
 						ans.append('f2')
-					elif unset_corners[0] == 3:
+					elif unset_corners[0] == 6:
 						self.r2()
 						ans.append('r2')
 			
@@ -347,5 +334,6 @@ if __name__ == '__main__':
 	print("------------------------------------------------Third Phase started--------------------------")
 	t = third_phase(s)
 	ans.extend(t.solve())
+	t.print_cube_with_faces()
 	print(ans)
 

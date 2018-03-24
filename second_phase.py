@@ -13,13 +13,13 @@ class second_phase(mycube):
 	#this is basically a controller method which calls other methods eho actually solve the cube and returns the ans for THIS STAGE
 	def solve(self):
 		self.set_conflicting_corners()
-		print("after adjusting corners")
+		print("--------------------------after adjusting corners-----------------------")
 		self.print_cube_with_faces()
 		self.set_adjacent_corners_same()
-		print("after adjacent corners are same")
+		print("-----------------------after adjacent corners are same---------------------")
 		self.print_cube_with_faces()
 		self.make_sides()
-		print("after makng sides")
+		print("---------------------------after makng sides-------------------------------")
 		return self.ans
 	
 	#returns conflicting corners (i.e orange on up face or red on down face) of up face if face=0 else returns conflicting corners of down face

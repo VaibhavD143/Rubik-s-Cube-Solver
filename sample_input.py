@@ -23,3 +23,10 @@ Error
 		self.right = ['o','w','w','w','y','y','o','w','b']
 		self.up = ['b','o','w','o','r','o','b','b','w']
 		self.down = ['r','r','g','r','o','g','b','r','y']
+
+self.front = ['y','b','g','o','b','y','r','w','g']
+		self.back = ['b','o','w','r','g','y','y','o','o']
+		self.left = ['b','g','g','b','y','y','w','o','g']
+		self.right = ['o','y','r','g','w','b','y','w','b']
+		self.up = ['r','b','y','r','r','r','o','w','w']
+		self.down = ['w','g','r','g','o','r','b','w','o']

@@ -1,12 +1,12 @@
 class mycube():
 	global ans
 	def __init__(self):
-		self.front = ['y','b','g','o','b','y','r','w','g']
-		self.back = ['b','o','w','r','g','y','y','o','o']
-		self.left = ['b','g','g','b','y','y','w','o','g']
-		self.right = ['o','y','r','g','w','b','y','w','b']
-		self.up = ['r','b','y','r','r','r','o','w','w']
-		self.down = ['w','g','r','g','o','r','b','w','o']
+		self.front = ['b','g','o','g','b','b','w','o','r']
+		self.back =  ['b','r','o','b','g','w','y','w','r']
+		self.left =  ['y','g','w','b','y','y','g','g','r']
+		self.right = ['g','r','o','y','w','o','y','w','b']
+		self.up =    ['g','y','y','o','r','b','o','r','w']
+		self.down =  ['b','y','g','w','o','r','w','o','r']
 
 	#to rotate any side of the cube, here self is face itself and up right down left is with respect when front face is facing us
 	def rotate(self,face,up,right,down,left,name):
