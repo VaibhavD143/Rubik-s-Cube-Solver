@@ -15,22 +15,31 @@ class third_phase(mycube):
 		"""This will solve third phase in two step"""
 		#this is to solve corners of all edges
 		self.set_corners_acc_center()
-		print('-------------------------------------------- All corner set -------------------------------------------------')
-		self.print_cube_with_faces()
-		print(self.ans)
-		print('----------------------------------------- All edge set-----------------------------------------------------')
+		#print('-------------------------------------------- All corner set -------------------------------------------------')
+		#self.print_cube_with_faces()
+		#print(self.ans)
+		#print('----------------------------------------- All edge set-----------------------------------------------------')
 		#3B start
-		checking_functions = [self.check_algo1,self.check_algo2,self.check_algo3,self.check_algo4,self.check_algo5,self.check_algo6]
+		checking_functions = [self.check_algo1,self.check_algo2,self.check_algo3,self.set_2_in_different_circuits]
 		# checking_functions = [self.check_algo1,self.check_algo3,self.check_algo4,self.check_algo5,self.check_algo6]
+		#j = 0		this was for debugging purpose if while loop goes in infinite
 		while True:
 			if self.is_solved():
 				break
 			else:
+				i = 1
 				for fun in checking_functions:
-					print("------------------position--------------------------")
-					self.print_cube_with_faces()
+					#print("------------------position--------------------------")
+					#self.print_cube_with_faces()
 					if fun() == True:
+						#print("hoho")
+						#self.print_cube_with_faces()
+						#print("haha")
 						break
+					i+=1
+				#break
+		#	self.print_cube_with_faces()
+		#	j+=1
 		
 		return(self.ans)
 
@@ -93,6 +102,7 @@ class third_phase(mycube):
 			self.set_corner_of_face(self.right,self.left,self.u,self.d,self.f,self.b,self.r,self.l,{'u':'u','d':'d','l':'f','r':'b','f':'r','b':'l'})
 
 	def check_algo1(self):
+#		print("in check algo 1")
 		return_value = False
 		face_edge_fun = { 'front':{1:self.u2,3:self.l2,5:self.r2,7:self.d2},
 						  'back':{1:self.u2,3:self.r2,5:self.l2,7:self.d2},
@@ -147,7 +157,7 @@ class third_phase(mycube):
 				self.algo1(up_function,right_function,up_function_name,right_function_name)
 				return_value = True
 				
-
+		flag = False
 		if 1 in bad_edges[4] and 3 in bad_edges[4]:
 			if 3 in bad_edges[5] and 7 in bad_edges[5]:
 				a=1
@@ -319,7 +329,7 @@ class third_phase(mycube):
 		return return_value
 
 	def check_algo2(self):
-		
+		#print("in check algo 2")
 		return_value = False
 		edge_move = [{1:self.d2,3:self.r2},{1:self.d2,3:self.b2},{1:self.f2,3:self.r2}]
 		edge_move_name = [{1:'d2',3:'r2'},{1:'d2',3:'b2'},{1:'f2',3:'r2'}]
@@ -332,7 +342,7 @@ class third_phase(mycube):
 				if f[7] != f[4] and b[7] != b[4]:
 					self.algo2(edge_move[i][1],edge_move_name[i][1],edge_middle_move[i][1])
 					return_value = True
-			elif f[3] != f[4] and b[3] != f[4]:
+			elif f[3] != f[4] and b[3] != b[4]:
 				if f[5] != f[4] and b[5] != f[4]:
 					self.algo2(edge_move[i][3],edge_move_name[i][3],edge_middle_move[i][3])
 					return_value = True
@@ -340,7 +350,7 @@ class third_phase(mycube):
 		return return_value
 
 	def check_algo3(self):
-
+		#print("in check algo 3")
 		return_value = False
 		if (self.front[7] != self.front[4] and self.down[1] != self.down[4] and self.back[1] != self.back[4]  and self.up[7] != self.up[4]):
 			self.algo3(self.f2,self.mf1,self.mf,['f2','mf1','mf'])
@@ -429,12 +439,13 @@ class third_phase(mycube):
 		elif (self.left[3] != self.left[4] and self.back[5] != self.back[4] and self.right[3] != self.right[5] and self.front[3] != self.front[4]):
 			self.algo3(self.l2,self.mc1,self.mc,['l2','mc1','mc'])
 			return_value = True
-
-		elif (self.right[5] != self.right[4] and self.back[3] != self.back[4] and self.front[5] != self.front[5] and self.left[5] != self.left[5]):
+		#some change done yet to be discussed
+		elif (self.right[5] != self.right[4] and self.back[3] != self.back[4] and self.front[5] != self.front[4] and self.left[5] != self.left[4]):
 			self.algo3(self.r2,self.mc,self.mc1,['r2','mc','mc1'])
+			# print("in here")
 			return_value = True
 
-		elif (self.right[5] != self.right[4] and self.back[3] != self.back[4] and self.front[3] != self.front[5] and self.left[3] != self.left[5]):
+		elif (self.right[5] != self.right[4] and self.back[3] != self.back[4] and self.front[3] != self.front[4] and self.left[3] != self.left[4]):
 			self.algo3(self.b2,self.mc1,self.mc,['b2','mc1','mc'])
 			return_value = True
 		return return_value
@@ -553,31 +564,200 @@ class third_phase(mycube):
 				self.mc2()
 				self.ans.append('mc2')
 		
-	def algo3(self,front2,middle_layer1,middle_layer,move_names):
-		front2()
+	def algo3(self,front,middle_layer1,middle_layer,move_names):
+		front()
 		middle_layer1()
-		front2()
+		front()
 		middle_layer()
 		self.ans.extend([move_names[0],move_names[1],move_names[0],move_names[2]])
 
 	def algo4(self,up_fun,up_fun_name,middle_layer):
-		middle_layer_fun = None
+		middle_layer_fun = ''
 		if middle_layer == 1:
 			middle_layer_fun = self.mf2
-			middle_layer_fun_name = 'mf2'
+			self.ans.extend(['mf2',up_fun_name,'mf2',up_fun_name,up_fun_name,'mf2',up_fun_name,'mf2'])
+			print(self.ans)
 		elif middle_layer == 2:
 			middle_layer_fun = self.mr2
-			middle_layer_fun_name = 'mr2'
+			self.ans.extend(['mr2',up_fun_name,'mr2',up_fun_name,up_fun_name,'mr2',up_fun_name,'mr2'])
+			print(self.ans)
 		elif middle_layer == 3:
 			middle_layer_fun = self.mc2
-			middle_layer_fun_name = 'mc2'
+			self.ans.extend(['mc2',up_fun_name,'mc2',up_fun_name,up_fun_name,'mc2',up_fun_name,'mc2'])
+			print(self.ans)
+		middle_layer_fun()
+		up_fun()
+		middle_layer_fun()
+		up_fun()
+		up_fun()
+		middle_layer_fun()
+		up_fun()
+		middle_layer_fun()
 
-		middle_layer_fun()
-		up_fun()
-		middle_layer_fun()
-		up_fun()
-		up_fun()
-		middle_layer_fun()
-		up_fun()
-		middle_layer_fun()
-		self.ans.extend([middle_layer_fun_name,up_fun_name,middle_layer_fun_name,up_fun_name,up_fun_name,middle_layer_fun_name,up_fun_name,middle_layer_fun_name])
+	def is_mismatching_edge(self,edge):
+		edge_correct_color = {1:[-1,'r','b'],
+							  2:['w',-1,'b'],
+							  3:[-1,'o','b'],
+							  4:['y',-1,'b'],
+							  5:['y','r',-1],
+							  6:['w','r',-1],
+							  7:['w','o',-1],
+							  8:['y','o',-1],
+							  9:[-1,'r','g'],
+							  10:['w',-1,'g'],
+							  11:[-1,'o','g'],
+							  12:['y',-1,'g']
+							 }
+		return not (edge_correct_color[edge] == self.get_edge(edge))
+	def get_mismatching_edge(self):
+		circuit1 = [1,3,9,11]
+		circuit2 = [5,6,7,8]
+		circuit3 = [2,10,12,4]
+
+		ans = [[],[],[]]
+
+		for edge in circuit1:
+			if self.is_mismatching_edge(edge):
+				ans[0].append(edge)
+
+		for edge in circuit2:
+			if self.is_mismatching_edge(edge):
+				ans[1].append(edge)
+
+		for edge in circuit3:
+			if self.is_mismatching_edge(edge):
+				ans[2].append(edge)
+
+		return ans
+	def set_2_in_different_circuits(self):
+
+		return_value = False
+		mismatching_edges = self.get_mismatching_edge()
+		fun_name_mapping = {'f':self.f,'r':self.r,'l':self.l,'u':self.u,'b':self.b,'d':self.d,'f2':self.f2,'r2':self.r2,'l2':self.l2,'u2':self.u2,'b2':self.b2,'d2':self.d2}
+		if len(mismatching_edges[0])>=2 and len(mismatching_edges[1])>=2:
+			#edges_to_set = [1,5,6,9]
+			ans = []
+			return_value = True
+			if not self.is_mismatching_edge(1):
+				if self.is_mismatching_edge(3):
+					ans.append(['f2'])
+				else:
+					ans.append(['d2','f2'])
+			if not self.is_mismatching_edge(5):
+				if self.is_mismatching_edge(8):
+					ans.append(['l2'])
+				else:
+					ans.append(['d2','l2'])
+			if not self.is_mismatching_edge(6):
+				if self.is_mismatching_edge(7):
+					ans.append(['r2'])
+				else:
+					ans.append(['d2','r2'])
+			if not self.is_mismatching_edge(9):
+				if self.is_mismatching_edge(11):
+					ans.append(['b2'])
+				else:
+					ans.append(['d2','b2'])
+
+			ans = self.redundant_remover(ans,'d2')
+			self.fun_caller(ans,fun_name_mapping)
+			self.ans.extend(ans)
+			self.algo4(fun_name_mapping['u'],'u',1)
+			ans.reverse()
+			self.fun_caller(ans,fun_name_mapping)
+			self.ans.extend(ans)
+		elif len(mismatching_edges[0])>=2 and len(mismatching_edges[2])>=2:
+			edges_to_set = [1,2,3,4]
+			return_value = True
+			ans = []
+			if not self.is_mismatching_edge(1):
+				if self.is_mismatching_edge(9):
+					ans.append(['u2'])
+				else:
+					ans.append(['b2','u2'])
+			if not self.is_mismatching_edge(2):
+				if self.is_mismatching_edge(10):
+					ans.append(['r2'])
+				else:
+					ans.append(['b2','r2'])
+			if not self.is_mismatching_edge(3):
+				if self.is_mismatching_edge(11):
+					ans.append(['d2'])
+				else:
+					ans.append(['b2','d2'])
+			if not self.is_mismatching_edge(4):
+				if self.is_mismatching_edge(12):
+					ans.append(['l2'])
+				else:
+					ans.append(['b2','l2'])
+
+			ans = self.redundant_remover(ans,'b2')
+			self.fun_caller(ans,fun_name_mapping)
+			self.ans.extend(ans)
+			self.algo4(fun_name_mapping['f'],'f',1)
+			ans.reverse()
+			self.fun_caller(ans,fun_name_mapping)
+			self.ans.extend(ans)
+			
+		elif len(mismatching_edges[1])>=2 and len(mismatching_edges[2])>=2:
+
+			edges_to_set = [6,7,2,10]
+			return_value = True
+			ans = []
+			if not self.is_mismatching_edge(6):
+				# print("6")
+				if self.is_mismatching_edge(5):
+					ans.append(['u2'])
+				else:
+					ans.append(['l2','u2'])
+			if not self.is_mismatching_edge(7):
+				# print("7")
+				if self.is_mismatching_edge(8):
+					ans.append(['d2'])
+				else:
+					# print("7b")
+					ans.append(['l2','d2'])
+			if not self.is_mismatching_edge(2):
+				# print("2")
+				if self.is_mismatching_edge(4):
+					ans.append(['f2'])
+				else:
+					ans.append(['l2','f2'])
+			if not self.is_mismatching_edge(10):
+				# print("10")
+				if self.is_mismatching_edge(12):
+					ans.append(['b2'])
+				else:
+					ans.append(['l2','b2'])
+
+			ans = self.redundant_remover(ans,'l2')
+			self.fun_caller(ans,fun_name_mapping)
+			self.ans.extend(ans)
+			self.algo4(fun_name_mapping['r'],'r',3)
+			ans.reverse()
+			self.fun_caller(ans,fun_name_mapping)
+			self.ans.extend(ans)
+		return return_value
+
+	def redundant_remover(self,ans,move):
+		done = False
+		final_ans = []
+		for moves in ans:
+			contains = move in moves
+			if contains and (not done):
+				flag = True
+				final_ans.extend(moves)
+			elif contains and done:
+				moves.remove(move)
+				final_ans.extend(moves)
+			elif (not contains) and done:
+				moves.insert(move,0)
+				final_ans.extend(moves)
+				done = False
+			elif (not contains) and (not done):
+				final_ans.extend(moves)
+		return final_ans
+	def fun_caller(self,names,mapping):
+		for name in names:
+			# print(name)
+			mapping[name]()

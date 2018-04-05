@@ -1,12 +1,12 @@
 class mycube():
-	global ans
-	def __init__(self):
-		self.front = ['b','g','o','g','b','b','w','o','r']
-		self.back =  ['b','r','o','b','g','w','y','w','r']
-		self.left =  ['y','g','w','b','y','y','g','g','r']
-		self.right = ['g','r','o','y','w','o','y','w','b']
-		self.up =    ['g','y','y','o','r','b','o','r','w']
-		self.down =  ['b','y','g','w','o','r','w','o','r']
+	
+	def __init__(self,c_state):
+		self.front = c_state['f']
+		self.back =  c_state['b']
+		self.left =  c_state['l']
+		self.right = c_state['r']
+		self.up =    c_state['u']
+		self.down =  c_state['d']
 
 	#to rotate any side of the cube, here self is face itself and up right down left is with respect when front face is facing us
 	def rotate(self,face,up,right,down,left,name):
@@ -164,41 +164,146 @@ class mycube():
 		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 
-	def mf(self):
-		self.l()
-		self.r1()
-
-	def mf2(self):
-		self.l2()
-		self.r2()
-	
 	def mf1(self):
-		self.l1()
-		self.r()
+		faces = [self.front,self.down,self.back,self.up]
+		tmp147 = [self.up[1],self.up[4],self.up[7]]
+		for i in range(0,4):
+			if i<2:
+				tmp = [tmp147[0],tmp147[1],tmp147[2]]
+				tmp147[0] = faces[i][1]
+				tmp147[1] = faces[i][4]
+				tmp147[2] = faces[i][7]
+				faces[i][1] = tmp[0]
+				faces[i][4] = tmp[1]
+				faces[i][7] = tmp[2]
+			else:
+				tmp = [tmp147[0],tmp147[1],tmp147[2]]
+				tmp147[0] = faces[i][1]
+				tmp147[1] = faces[i][4]
+				tmp147[2] = faces[i][7]
+				faces[i][7] = tmp[0]
+				faces[i][4] = tmp[1]
+				faces[i][1] = tmp[2]
+	def mf2(self):
+		self.mf()
+		self.mf()
+	
+	def mf(self):
+		faces = [self.front,self.up,self.back,self.down]
+		tmp147 = [self.down[1],self.down[4],self.down[7]]
+		for i in range(0,4):
+			if i<2:
+				tmp = [tmp147[0],tmp147[1],tmp147[2]]
+				tmp147[0] = faces[i][1]
+				tmp147[1] = faces[i][4]
+				tmp147[2] = faces[i][7]
+				faces[i][1] = tmp[0]
+				faces[i][4] = tmp[1]
+				faces[i][7] = tmp[2]
+			else:
+				tmp = [tmp147[0],tmp147[1],tmp147[2]]
+				tmp147[0] = faces[i][1]
+				tmp147[1] = faces[i][4]
+				tmp147[2] = faces[i][7]
+				faces[i][7] = tmp[0]
+				faces[i][4] = tmp[1]
+				faces[i][1] = tmp[2]
 
 	def mr(self):
-		self.f()
-		self.b1()
-
+		faces = [self.right,self.up,self.left,self.down]
+		tmp1 = [self.down[3],self.down[4],self.down[5]]
+		flag = True
+		for i in range(0,4):
+			if flag and i<2:
+				tmp = [tmp1[0],tmp1[1],tmp1[2]]
+				tmp1[0] = faces[i][1]
+				tmp1[1] = faces[i][4]
+				tmp1[2] = faces[i][7]
+				faces[i][1] = tmp[0]
+				faces[i][4] = tmp[1]
+				faces[i][7] = tmp[2]
+				flag = False
+			elif flag and i>=2:
+				tmp = [tmp1[0],tmp1[1],tmp1[2]]
+				tmp1[0] = faces[i][1]
+				tmp1[1] = faces[i][4]
+				tmp1[2] = faces[i][7]
+				faces[i][7] = tmp[0]
+				faces[i][4] = tmp[1]
+				faces[i][1] = tmp[2]
+				flag = False
+			elif not flag:
+				tmp = [tmp1[0],tmp1[1],tmp1[2]]
+				tmp1[0] = faces[i][3]
+				tmp1[1] = faces[i][4]
+				tmp1[2] = faces[i][5]
+				faces[i][3] = tmp[0]
+				faces[i][4] = tmp[1]
+				faces[i][5] = tmp[2]
+				flag = True
 	def mr2(self):
-		self.f2()
-		self.b2()
+		self.mr()
+		self.mr()
 
 	def mr1(self):
-		self.f1()
-		self.b()
-
+		faces = [self.right,self.down,self.left,self.up]
+		tmp1 = [self.up[3],self.up[4],self.up[5]]
+		flag = True
+		for i in range(0,4):
+			if flag:
+				tmp = [tmp1[0],tmp1[1],tmp1[2]]
+				tmp1[0] = faces[i][1]
+				tmp1[1] = faces[i][4]
+				tmp1[2] = faces[i][7]
+				faces[i][1] = tmp[0]
+				faces[i][4] = tmp[1]
+				faces[i][7] = tmp[2]
+				flag = False
+			elif (not flag) and i>=2:
+				tmp = [tmp1[0],tmp1[1],tmp1[2]]
+				tmp1[0] = faces[i][1]
+				tmp1[1] = faces[i][4]
+				tmp1[2] = faces[i][7]
+				faces[i][3] = tmp[0]
+				faces[i][4] = tmp[1]
+				faces[i][5] = tmp[2]
+				flag = False
+			elif (not flag) and i<2:
+				tmp = [tmp1[0],tmp1[1],tmp1[2]]
+				tmp1[0] = faces[i][3]
+				tmp1[1] = faces[i][4]
+				tmp1[2] = faces[i][5]
+				faces[i][5] = tmp[0]
+				faces[i][4] = tmp[1]
+				faces[i][3] = tmp[2]
+				flag = True
 	def mc(self):
-		self.u()
-		self.d1()
+		faces = [self.front,self.right,self.back,self.left]
+		tmp345 = [self.left[3],self.left[4],self.left[5]]
+		for i in range(0,4):			
+			tmp = [tmp345[0],tmp345[1],tmp345[2]]
+			tmp345[0] = faces[i][3]
+			tmp345[1] = faces[i][4]
+			tmp345[2] = faces[i][5]
+			faces[i][3] = tmp[0]
+			faces[i][4] = tmp[1]
+			faces[i][5] = tmp[2]
 
 	def mc2(self):
-		self.u2()
-		self.d2()
+		self.mc()
+		self.mc()
 
 	def mc1(self):
-		self.u1()
-		self.d()
+		faces = [self.front,self.left,self.back,self.right]
+		tmp345 = [self.right[3],self.right[4],self.right[5]]
+		for i in range(0,4):
+			tmp = [tmp345[0],tmp345[1],tmp345[2]]
+			tmp345[0] = faces[i][3]
+			tmp345[1] = faces[i][4]
+			tmp345[2] = faces[i][5]
+			faces[i][3] = tmp[0]
+			faces[i][4] = tmp[1]
+			faces[i][5] = tmp[2]
 
 
 	#it 'll give current colors of all the corners with respect to X-axis,Y-axis,Z-axis

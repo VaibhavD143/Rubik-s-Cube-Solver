@@ -13,13 +13,13 @@ class second_phase(mycube):
 	#this is basically a controller method which calls other methods eho actually solve the cube and returns the ans for THIS STAGE
 	def solve(self):
 		self.set_conflicting_corners()
-		print("--------------------------after adjusting corners-----------------------")
-		self.print_cube_with_faces()
+		#print("--------------------------after adjusting corners-----------------------")
+		#self.print_cube_with_faces()
 		self.set_adjacent_corners_same()
-		print("-----------------------after adjacent corners are same---------------------")
-		self.print_cube_with_faces()
+		#print("-----------------------after adjacent corners are same---------------------")
+		#self.print_cube_with_faces()
 		self.make_sides()
-		print("---------------------------after makng sides-------------------------------")
+		#print("---------------------------after makng sides-------------------------------")
 		return self.ans
 	
 	#returns conflicting corners (i.e orange on up face or red on down face) of up face if face=0 else returns conflicting corners of down face
@@ -79,7 +79,7 @@ class second_phase(mycube):
 				if (self.is_adjacent(up_conf_corners[0],up_conf_corners[1])) and (self.is_adjacent(down_conf_corners[0],down_conf_corners[1])):
 					d1 = self.get_down_corner(up_conf_corners[0])
 					d2 = self.get_down_corner(up_conf_corners[1])
-					print("in1")
+					#print("in1")
 					#rotate to set set conflicting corners of down face to down of conflicting upper corners					
 					while not (self.down[d1] == 'r' and self.down[d2] == 'r'):
 						self.d()
@@ -100,8 +100,8 @@ class second_phase(mycube):
 						self.ans.append('l2')
 					break	
 				elif (self.is_adjacent(up_conf_corners[0],up_conf_corners[1])) and (not self.is_adjacent(down_conf_corners[0],down_conf_corners[1])):
-					print("in2")
-					print(down_conf_corners[0],down_conf_corners[1])
+					#print("in2")
+					#print(down_conf_corners[0],down_conf_corners[1])
 					#rotate face having two upper-conflicting corners
 					if (up_conf_corners[0] in [0,2]) and (up_conf_corners[1] in [0,2]):
 						self.b2()
@@ -175,18 +175,18 @@ class second_phase(mycube):
 		return self.ans
 	#this makes adjacent corners on front,back,left and right same
 	def set_adjacent_corners_same(self):
-		print("here")
+		#print("here")
 		while True:
 			# 0 = all mismatch | 1 = 1 match | 2 = all matched
 			up_state,down_state = self.get_layer_state()
 			#all 9 cases and their solutions
-			print(up_state,down_state)
-			print("in")
+			# print(up_state,down_state)
+			# print("in")
 			if up_state == 2 and down_state == 2:
-				print([2,2])
+				# print([2,2])
 				break
 			elif up_state == 1 and down_state == 1:
-				print([1,1])
+				# print([1,1])
 				while self.back[0] != self.back[2]:
 					self.u()
 					self.ans.append('u')
@@ -197,28 +197,28 @@ class second_phase(mycube):
 				self.do_algo(0)
 				
 			elif up_state == 0 and down_state == 0:
-				print([0,0])
+				# print([0,0])
 				self.r2()
 				self.f2()
 				self.r2()
 				self.ans.extend(['r2','f2','r2'])
 			elif up_state == 1 and down_state == 0:
-				print([1,0])
+				# print([1,0])
 				while self.front[0] != self.front[2]:
 					self.u()
 					self.ans.append('u')
 				self.do_algo(0)
 			elif up_state == 0 and down_state == 1:
-				print([0,1])
+				# print([0,1])
 				while self.front[6] != self.front[8]:
 					self.d()
 					self.ans.append('d')
 				self.do_algo(1)
 			elif up_state == 0 and down_state == 2:
-				print([0,2])
+				# print([0,2])
 				self.do_algo(0)
 			elif up_state == 2 and down_state == 0:
-				print([2,0])
+				# print([2,0])
 				self.do_algo(1)
 			elif up_state == 1 and down_state == 2:
 				# print([1,2])
@@ -227,7 +227,7 @@ class second_phase(mycube):
 					self.ans.append('u')
 				self.do_algo(0)
 			elif up_state == 2 and down_state == 1:
-				print([2,1])
+				# print([2,1])
 				while self.back[6] != self.back[8]:
 					self.d()
 					self.ans.append('d')
@@ -256,7 +256,7 @@ class second_phase(mycube):
 			#all conflicting edges but non conflicting edges of top layer only
 			conf_edges,non_conf_edges = self.get_conflicting_edges()
 			n_conf_edges = len(conf_edges)
-			print(n_conf_edges)
+			# print(n_conf_edges)
 			if self.front[0] not in ['b','g']:
 				self.u()
 				self.ans.append('u')

@@ -1,10 +1,16 @@
 from notation import *
-from second_phase import *
-from third_phase import *
 
 class first_phase(mycube):
 
-	global ans #answer variable containing all the steps
+	def __init__(self,c_state):
+		self.up = c_state.up
+		self.down = c_state.down
+		self.back = c_state.back
+		self.front = c_state.front
+		self.right = c_state.right
+		self.left = c_state.left
+	
+	ans = []#answer variable containing all the steps
 	front_edges = [1,2,3,4] #edges those are in front face 	
 	#To convert two bad edges to four bad edges 
 	def from_two_bad_edges_to_four(self,bad_edges):
@@ -12,40 +18,40 @@ class first_phase(mycube):
 		if bad_edges[0] in self.front_edges and bad_edges[1] in self.front_edges:
 			if bad_edges[0] == 1:
 				self.u()
-				ans.append('u')
+				self.ans.append('u')
 			elif bad_edges[0] == 2:
 				self.r()
-				ans.append('r')
+				self.ans.append('r')
 			elif bad_edges[0] == 3:
 				self.d()
-				ans.append('d')
+				self.ans.append('d')
 			elif bad_edges[0] == 4:
 				self.l()
-				ans.append('l')
+				self,ans.append('l')
 			self.f()
-			ans.append('f')
+			self.ans.append('f')
 
 		#when any one bad edge is in front
 		elif (bad_edges[0] in self.front_edges and bad_edges[1] not in self.front_edges) or (bad_edges[0] not in self.front_edges and bad_edges[1] in self.front_edges):
 			self.f()
-			ans.append('f')
+			self.ans.append('f')
 
 		#when both bad edges are not in front then call one in front and rotate fron
 		elif (bad_edges[0] not in self.front_edges and bad_edges[1] not in self.front_edges):
 			
 			if(bad_edges[0] in [10,12] and bad_edges[1] in [10,12]):
 				self.r2()
-				ans.append('r2')
+				self.ans.append('r2')
 			elif(bad_edges[0] in [5,6,9] or bad_edges[1] in [5,6,9]):
 				while not self.is_bad_edge(1):
 					self.u()
-					ans.append('u')
+					self.ans.append('u')
 			elif(bad_edges[0] in [7,8,11] or bad_edges[1] in [7,8,11]):
 				while not self.is_bad_edge(3):
 					self.d()
-					ans.append('d')
+					self.ans.append('d')
 			self.f()
-			ans.append('f')
+			self.ans.append('f')
 
 	def move_bad_edges_to_front(self,edge_no):
 		if edge_no == 1:
@@ -81,7 +87,7 @@ class first_phase(mycube):
 			moves['u']()
 			moves['r']()
 			moves['r']()
-			ans.extend([move_name['r'],move_name['r'],move_name['u'],move_name['r'],move_name['r']])
+			self.ans.extend([move_name['r'],move_name['r'],move_name['u'],move_name['r'],move_name['r']])
 			return 'second'
 
 		if self.is_bad_edge(bottom_edges[edge_no][1]):
@@ -92,7 +98,7 @@ class first_phase(mycube):
 			moves['u']()
 			moves['l']()
 			moves['l']()
-			ans.extend([move_name['l'],move_name['l'],move_name['u'],move_name['u'],move_name['u'],move_name['l'],move_name['l']])
+			self.ans.extend([move_name['l'],move_name['l'],move_name['u'],move_name['u'],move_name['u'],move_name['l'],move_name['l']])
 			return 'third'
 
 		if self.is_bad_edge(bottom_edges[edge_no][2]):
@@ -101,14 +107,14 @@ class first_phase(mycube):
 			moves['r']()
 			moves['u']()
 			moves['r']()
-			ans.extend([move_name['r'],move_name['r'],move_name['r'],move_name['u'],move_name['r']])
+			self.ans.extend([move_name['r'],move_name['r'],move_name['r'],move_name['u'],move_name['r']])
 			return 'fourth'
 
 		if self.is_bad_edge(bottom_edges[edge_no][3]):
 			moves['b']()
 			moves['b']()
 			moves['u']()
-			ans.extend([move_name['b'],move_name['b'],move_name['u']])
+			self.ans.extend([move_name['b'],move_name['b'],move_name['u']])
 			return 'fifth'
 
 		if self.is_bad_edge(bottom_edges[edge_no][4]):
@@ -119,7 +125,7 @@ class first_phase(mycube):
 			moves['l']()
 			moves['l']()
 			moves['l']()
-			ans.extend([move_name['l'],move_name['u'],move_name['u'],move_name['u'],move_name['l'],move_name['l'],move_name['l']])
+			self.ans.extend([move_name['l'],move_name['u'],move_name['u'],move_name['u'],move_name['l'],move_name['l'],move_name['l']])
 			return 'sixth'
 	
 	#solve bad edges of the cube
@@ -139,7 +145,7 @@ class first_phase(mycube):
 			for i in range(4):
 				self.move_bad_edges_to_front(i+1)
 			self.f()
-			ans.append('f')
+			self.ans.append('f')
 
 
 	#to set upper or down layer for setting cross on top and down 
@@ -152,12 +158,12 @@ class first_phase(mycube):
 		if flag:
 			while (self.up[a] == 'o' or self.up[a] == 'r'):	#rotate until it sets the blank(!r !o) in that place
 				self.u()
-				ans.append('u')
+				self.ans.append('u')
 			return 'u'
 		else:
 			while (self.down[b] =='o' or self.down[b] =='r'): #rotate until it sets the blank(!r !o) in that place
 				self.d()
-				ans.append('d')	
+				self.ans.append('d')	
 			return 'd'
 
 	#It will set red orange edges to top and down faces
@@ -169,12 +175,12 @@ class first_phase(mycube):
 				self.r()
 				self.u()
 				self.r1()
-				ans.extend(['r','u','r1'])
+				self.ans.extend(['r','u','r1'])
 			elif face_set == 'd':
 				self.r1()
 				self.d1()
 				self.r()
-				ans.extend(['r1','d1','r'])
+				self.ans.extend(['r1','d1','r'])
 
 		if self.front[3]=='r' or self.front[3]=='o':
 			face_set = self.set_opposite_to_ro(1,7)
@@ -182,36 +188,36 @@ class first_phase(mycube):
 				self.l1()
 				self.u1()
 				self.l()
-				ans.extend(['l1','u1','l'])
+				self.ans.extend(['l1','u1','l'])
 			elif face_set == 'd':
 				self.l()
 				self.d()
 				self.l1()
-				ans.extend(['l','d','l1'])
+				self.ans.extend(['l','d','l1'])
 		if (self.back[3]=='r' or self.back[3]=='o'):
 			face_set = self.set_opposite_to_ro(7,1)	
 			if face_set == 'u':
 				self.r1()
 				self.u1()
 				self.r()
-				ans.extend(['r1','u1','r'])
+				self.ans.extend(['r1','u1','r'])
 			elif face_set == 'd':
 				self.r()
 				self.d()
 				self.r1()
-				ans.extend(['r','d','r1'])
+				self.ans.extend(['r','d','r1'])
 		if self.back[5]=='r' or self.back[5]=='o':
 			face_set = self.set_opposite_to_ro(7,1)
 			if face_set == 'u':
 				self.l()
 				self.u()
 				self.l1()
-				ans.extend(['l','u','l1'])
+				self.ans.extend(['l','u','l1'])
 			elif face_set == 'd':
 				self.l1()
 				self.d1()
 				self.l()
-				ans.extend(['l1','d1','l'])
+				self.ans.extend(['l1','d1','l'])
 		
 	def set_ro_corners(self):
 		while(not self.check_ro_corners()):
@@ -232,57 +238,57 @@ class first_phase(mycube):
 				if flag_down :
 					while self.front[6] not in ro:
 						self.d()
-						ans.append('d')
+						self.ans.append('d')
 					if flag_up:
 						while self.right[0] not in ro:
 							self.u()
-							ans.append('u')
+							self.ans.append('u')
 					else : 
 						while self.front[2] not in ro:
 							self.u()
-							ans.append('u')
+							self.ans.append('u')
 
 					self.l()
 					self.d1()
 					self.r2()
 					self.d()
 					self.l1()
-					ans.extend(['l','d1','r2','d','l1'])
+					self.ans.extend(['l','d1','r2','d','l1'])
 				elif not flag_down and flag_up:
 					while self.front[0] not in ro:
 						self.u()
-						ans.append('u')
+						self.ans.append('u')
 					while self.front[8] not in ro:
 						self.d()
-						ans.append('d')
+						self.ans.append('d')
 
 					self.r1()
 					self.d()
 					self.l2()
 					self.d1()
 					self.r()
-					ans.extend(['r1','d','l2','d1','r'])
+					self.ans.extend(['r1','d','l2','d1','r'])
 				else:
 					while self.front[2] not in ro:
 						self.u()
-						ans.append('u')
+						self.ans.append('u')
 					while self.front[8] not in ro:
 						self.d()
-						ans.append('d')
+						self.ans.append('d')
 					self.r2()
-					ans.append('r2')
+					self.ans.append('r2')
 					while self.front[6] not in ro:
 						self.d()
-						ans.append('d')
+						self.ans.append('d')
 					while self.right[0] not in ro:
 						self.u()
-						ans.append('u')					
+						self.ans.append('u')					
 					self.l()
 					self.d1()
 					self.r2()
 					self.d()
 					self.l1()
-					ans.extend(['l','d1','r2','d','l1'])
+					self.ans.extend(['l','d1','r2','d','l1'])
 			else:
 				unset_corners = self.give_unset_corners()
 				if flag_down_line:
@@ -292,48 +298,24 @@ class first_phase(mycube):
 
 				if len(unset_corners) >= 3:
 					self.f2()
-					ans.append('f2')
+					self.ans.append('f2')
 				elif len(unset_corners) == 2:
 					if unset_corners[0] == 0:
 						if unset_corners[1] in [2,8]:
 							self.r2()
-							ans.append('r2')
+							self.ans.append('r2')
 						elif unset_corners[1] == 6:
 							self.f2()
-							ans.append('f2')
+							self.ans.append('f2')
 					elif unset_corners[0] == 2:
 						self.f2()
-						ans.append('f2')
+						self.ans.append('f2')
 					elif unset_corners[0] == 6:
 						self.r2()
-						ans.append('r2')
-			
-if __name__ == '__main__':
-	ans = []
+						self.ans.append('r2')
 
-	f =first_phase()
-	# f.f()
-	# f.b()
-	f.print_cube_with_faces()
-	f.solve_bad_edges()
-	print("------------------------------------------------solved bad edges--------------------------")
-	f.print_cube_with_faces()
-	print(ans)
-	f.make_ro_cross()
-	print("------------------------------------------------ro cross-----------------------------------")
-	f.print_cube_with_faces()
-	print(ans)
-	f.set_ro_corners()
-	print("------------------------------------------------Up and down side settled--------------------------")
-	f.print_cube_with_faces()
-	print(ans)
-	s =second_phase(f)
-	ans.extend(s.solve())
-	s.print_cube_with_faces()
-	print(ans)
-	print("------------------------------------------------Third Phase started--------------------------")
-	t = third_phase(s)
-	ans.extend(t.solve())
-	t.print_cube_with_faces()
-	print(ans)
-
+	def solve(self):
+		self.solve_bad_edges()
+		self.make_ro_cross()
+		self.set_ro_corners()
+		return self.ans
