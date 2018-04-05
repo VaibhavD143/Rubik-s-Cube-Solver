@@ -12,7 +12,7 @@ class cube_input_verifier():
 		self.colors = ['b','g','r','o','w','y']
 		self.edge_map = []
 		self.corner_map = []
-		for i in xrange(0,6):
+		for i in range(0,6):
 			self.edge_map.append([False,False,False,False,False,False])
 			self.corner_map.append([False,False,False,False,False,False])
 		self.cube = mycube(input)

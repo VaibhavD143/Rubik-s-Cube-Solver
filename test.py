@@ -1,5 +1,4 @@
 from cube_solver import *
-from solution import solution
 input = {'f':['b','y','y','r','b','b','o','w','b'],
 		 'b':['b','g','g','b','g','r','o','w','g'],
 		 'u':['w','y','w','w','r','o','o','o','o'],
