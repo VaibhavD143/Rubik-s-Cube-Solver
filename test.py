@@ -1,4 +1,6 @@
-from cube_solver import *
+from color_resolver import color_resolver
+"""from cube_solver import *
+from solution import solution
 input = {'f':['b','y','y','r','b','b','o','w','b'],
 		 'b':['b','g','g','b','g','r','o','w','g'],
 		 'u':['w','y','w','w','r','o','o','o','o'],
@@ -11,4 +13,8 @@ ans = solver.solve()
 print(ans.length)
 print(ans.ans)
 print(ans.time)
-print(ans.status)
+print(ans.status)"""
+cr = color_resolver()
+h,s,v = cr.rgb2hsv(255,100,0)
+print(h,s,v)
+print(cr.resolve_color(h,s,v))
