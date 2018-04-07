@@ -1,13 +1,14 @@
 from image_processing import *
 import numpy as np
 import cv2
+from color_resolver import *
 
 
 class scan_cube(object):
 		
 	def __init__(self):
 		self.inst = {
-		'enter_to_cap': "Press 'c' to capture image",
+		'enter_to_cap': "Press 'spacebar' to capture image",
 		'front': "'blue' center in front and 'red' center on top",
 		'back' : "'green' center in front and 'red' center on top",
 		'up': "'red' center in front and 'green' center on top",
@@ -16,7 +17,7 @@ class scan_cube(object):
 		'down' : "'orange' center in front and 'blue' on top",
 		'error' : "Coudn't scan image please try again!"
 		}		
-		self.faces = ['front','back','left','right','up','down']
+		self.faces = ['front']#,'back','left','right','up','down']
 	
 	def capture_frame(self,face_name):
 		
@@ -31,20 +32,36 @@ class scan_cube(object):
 		name = face_name+".jpg"
 		debug = False
 		rimg = None
-
+		color1 = color2 = (255,255,255)
+		flag = 0
 		while(True):
-			# Capture frame-by-frame
 			ret, frame = cap.read()
 
-			# Our operations on the frame come here
-			# gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+			# show innstruction to click
+			font = cv2.FONT_HERSHEY_SIMPLEX
+			text = cap_msg
+			textsize = cv2.getTextSize(text, font, 1, 2)[0]
+			textX = (frame.shape[1] - textsize[0]) / 2
+			textY = 30
+			cv2.putText(frame, text, (int(textX), int(textY) ), font, 1, (255, 255, 255), 3, cv2.FILLED)
+			#show which face to scan instruction
+			text = face_msg
+			textsize = cv2.getTextSize(text, font, 0.5, 2)[0]
+			textX = (frame.shape[1] - textsize[0]) / 2
+			textY = frame.shape[0]-20
+			cv2.putText(frame, text, (int(textX), int(textY) ), font, 0.5, color2, 2, cv2.LINE_4)
 
-			cv2.putText(frame,cap_msg,(150,100),cv2.FONT_HERSHEY_SIMPLEX,1,(255,0,0),3,cv2.FILLED)
-			cv2.putText(frame,face_msg,(70,400),cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,0.7,(255,0,0),2,cv2.LINE_8)
+			if flag:
+				text = self.inst['error']
+				textsize = cv2.getTextSize(text, font, 0.5, 2)[0]
+				textX = (frame.shape[1] - textsize[0]) / 2
+				textY = frame.shape[0]-40
+				cv2.putText(frame, text, (int(textX), int(textY) ), font, 0.5, (0,0,255), 2, cv2.LINE_4)
+				
 
 			cv2.imshow("output",frame)
 			
-			if cv2.waitKey(1) & 0xFF == ord('q'):
+			if cv2.waitKey(1) & 0xFF == 32:
 				
 				rimg = RubiksImage(frame,index,name,debug)
 				try :
@@ -57,7 +74,7 @@ class scan_cube(object):
 					cv2.imwrite(face_name+".jpg",frame)
 					break
 				else:
-					face_msg = self.inst['error']
+					flag = 1
 
 		# When everything done, release the capture
 		cap.release()
@@ -74,5 +91,9 @@ class scan_cube(object):
 
 if __name__ == '__main__':
 	sc = scan_cube()
-	print(sc.get_rgb_of_all_faces())
-	
+	colors = sc.get_rgb_of_all_faces()
+	# colors = {'front': {1: (44, 66, 97), 2: (46, 75, 115), 3: (158, 133, 49), 4: (29, 91, 164), 5: (190, 60, 24), 6: (171, 49, 13), 7: (238, 108, 24), 8: (234, 133, 86), 9: (67, 186, 159)}}
+	# ind = 0
+	# for i in colors['front']:
+	# 	h,s,v = rgb2hsv(colors['front'][i][0],colors['front'][i][0],colors['front'][i][0])
+	# 	print(ind,(colors['front'][i][0],colors['front'][i][0],colors['front'][i][0]),(h,s,v),resolve_color(h,s,v))
