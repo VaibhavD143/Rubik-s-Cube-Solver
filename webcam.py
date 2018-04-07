@@ -39,8 +39,8 @@ class scan_cube(object):
 			# Our operations on the frame come here
 			# gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-			cv2.putText(frame,cap_msg,(150,100),cv2.FONT_HERSHEY_SIMPLEX,1,(255,0,0),4,cv2.LINE_AA)
-			cv2.putText(frame,face_msg,(70,400),cv2.FONT_HERSHEY_SIMPLEX,1,(255,0,0),4,cv2.LINE_AA)
+			cv2.putText(frame,cap_msg,(150,100),cv2.FONT_HERSHEY_SIMPLEX,1,(255,0,0),3,cv2.FILLED)
+			cv2.putText(frame,face_msg,(70,400),cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,0.7,(255,0,0),2,cv2.LINE_8)
 
 			cv2.imshow("output",frame)
 			
