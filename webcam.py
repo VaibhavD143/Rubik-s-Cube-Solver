@@ -90,10 +90,12 @@ class scan_cube(object):
 		return rgb
 
 if __name__ == '__main__':
-	sc = scan_cube()
-	colors = sc.get_rgb_of_all_faces()
+	# sc = scan_cube()
+	# colors = sc.get_rgb_of_all_faces()
+	# print(colors)
 	# colors = {'front': {1: (44, 66, 97), 2: (46, 75, 115), 3: (158, 133, 49), 4: (29, 91, 164), 5: (190, 60, 24), 6: (171, 49, 13), 7: (238, 108, 24), 8: (234, 133, 86), 9: (67, 186, 159)}}
-	# ind = 0
-	# for i in colors['front']:
-	# 	h,s,v = rgb2hsv(colors['front'][i][0],colors['front'][i][0],colors['front'][i][0])
-	# 	print(ind,(colors['front'][i][0],colors['front'][i][0],colors['front'][i][0]),(h,s,v),resolve_color(h,s,v))
+	colors = {'front': {1: (18, 27, 27), 2: (27, 40, 48), 3: (115, 88, 32), 4: (16, 50, 85), 5: (133, 44, 17), 6: (138, 44, 16), 7: (162, 66, 16), 8: (177, 95, 53), 9: (58, 153, 122)}}
+	ind = 0
+	for i in colors['front']:
+		h,s,v = rgb2hsv(colors['front'][i][0],colors['front'][i][1],colors['front'][i][2])
+		print(ind,(colors['front'][i][0],colors['front'][i][1],colors['front'][i][2]),(h,s,v),resolve_color(h,s,v))
