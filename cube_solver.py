@@ -56,7 +56,7 @@ class cube_solver():
 				final_ans.append(current+'1')
 		return final_ans
 
-	def solve(self):
+	def solve(self,debug=False):
 
 		verifier = cube_input_verifier(self.input)
 
@@ -72,12 +72,27 @@ class cube_solver():
 
 		f =first_phase(cube)
 		ans.extend(f.solve())
-		
+		if debug:
+			print('------------------------------after 1st phase--------------------------------------')
+			print("Steps to reach 1st phase: ",self.ans_shortner(ans))
+			print("current state: ")
+			f.print_cube_with_faces()
+
 		s =second_phase(f)
 		ans.extend(s.solve())
+		if debug:
+			print('------------------------------after 2nd phase--------------------------------------')
+			print("Steps to reach 2nd phase: ",self.ans_shortner(ans))
+			print("current state: ")
+			s.print_cube_with_faces()
 	
 		t = third_phase(s)
 		ans.extend(t.solve())
+		if debug:
+			print('------------------------------after 3rd phase--------------------------------------')
+			print("Steps to reach 3rd phase: ",self.ans_shortner(ans))
+			print("current state: ")
+			t.print_cube_with_faces()
 		
 		end = datetime.now()
 		exec_time = (end - ini).microseconds

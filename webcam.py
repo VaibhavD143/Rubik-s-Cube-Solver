@@ -89,10 +89,10 @@ class scan_cube(object):
 			cv2.imshow("output",frame)	#show frame to user
 			#is spacebar pressed?
 			if cv2.waitKey(1) & 0xFF == 32:	
-				im = cv2.imread("front.jpg")
-				rimg = RubiksImage(im,index,name,debug)	#initialize object of scanner
+				# im = cv2.imread("front.jpg")
+				rimg = RubiksImage(frame_copy,index,name,debug)	#initialize object of scanner
 				try :
-					rimg.analyze_file(im)	#scan caputred image
+					rimg.analyze_file(frame_copy)	#scan caputred image
 				except e:
 					print("Exception occored :",e)	#if any exception occured in scanning proccess
 					flag = 1
@@ -106,13 +106,14 @@ class scan_cube(object):
 					for i in range(1,10):
 						h,s,v = rgb2hsv(rgb_val[i][0],rgb_val[i][1],rgb_val[i][2])
 						color_name[i] = resolve_color(h,s,v)
-						print(color_name[i])
+						print(color_name[i],(h,s,v))
 						if color_name[i] not in ['r','b','g','o','y','w']:
 							flag = 2
 							print(i,"number cell can't be detected")
 							break
 					#skip whole loop as one or more color is not detected
 					if flag == 2:
+						flag = 1
 						time.sleep(1)
 						continue
 					# top row of detectected cube face
@@ -187,8 +188,10 @@ class scan_cube(object):
 	"""call capture image function for each face of cube"""
 	def get_rgb_of_all_faces(self,size = 3):
 		rgb = {}
+		input_file = open("input_json",'w+')
 		for face in self.faces:
 			rgb[face] = self.capture_frame(face)
+			input_file.write(rgb[face],'\n')
 		return rgb
 
 if __name__ == '__main__':

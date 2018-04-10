@@ -1,10 +1,10 @@
-from color_resolver import color_resolver
+# from color_resolver import color_resolver
 from cube_solver import *
 from solution import solution
 from webcam import *
 
 sc = scan_cube()
-colors = sc.get_rgb_all_faces()
+colors = sc.get_rgb_of_all_faces()
 faces = ['f','b','l','r','u','d']
 input = {}
 
@@ -12,16 +12,18 @@ for face in faces:
 	input[face] = list(colors[face].values())
 
 
-# input = {'f':['b','y','y','r','b','b','o','w','b'],
-# 		 'b':['b','g','g','b','g','r','o','w','g'],
-# 		 'u':['w','y','w','w','r','o','o','o','o'],
-# 		 'd':['w','b','r','y','o','o','y','r','y'],
-# 		 'l':['r','g','w','g','y','b','r','r','g'],
-# 		 'r':['g','w','r','y','w','o','y','g','b']
+# input = {'f':['w','r','r','g','b','o','r','r','b'],
+# 		 'b':['g','y','y','r','g','b','b','r','y'],
+# 		 'u':['o','g','w','o','r','b','g','b','w'],
+# 		 'd':['y','g','o','y','o','g','o','y','y'],
+# 		 'l':['g','y','r','o','y','o','b','b','g'],
+# 		 'r':['b','w','o','w','w','w','w','w','r']
 # 		}
 solver = cube_solver(input)
-ans = solver.solve()
-print(ans.length)
-print(ans.ans)
-print(ans.time)
-print(ans.status)
+debug = True
+ans = solver.solve(debug)
+print("=============================RESULTS===============================")
+print("Total steps to solve: ",ans.length)
+print("Steps to folow: ",ans.ans)
+print("Time taken by program to execute :",ans.time,"secs")
+print("Yipee! SOLVED") if ans.status else print("Can't be solved")

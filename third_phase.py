@@ -1,7 +1,7 @@
 from notation import *
 
 class third_phase(mycube):
-	ans = []
+	
 	"""constructor gets current state (i.e, second stage solved) and initializes the super class (i.e the generic cube)"""
 	def __init__(self, c_state):
 		self.up = c_state.up
@@ -10,7 +10,7 @@ class third_phase(mycube):
 		self.front = c_state.front
 		self.right = c_state.right
 		self.left = c_state.left
-
+		self.ans = []
 	def solve(self):
 		"""This will solve third phase in two step"""
 		#this is to solve corners of all edges
@@ -576,15 +576,15 @@ class third_phase(mycube):
 		if middle_layer == 1:
 			middle_layer_fun = self.mf2
 			self.ans.extend(['mf2',up_fun_name,'mf2',up_fun_name,up_fun_name,'mf2',up_fun_name,'mf2'])
-			print(self.ans)
+			# print(self.ans)
 		elif middle_layer == 2:
 			middle_layer_fun = self.mr2
 			self.ans.extend(['mr2',up_fun_name,'mr2',up_fun_name,up_fun_name,'mr2',up_fun_name,'mr2'])
-			print(self.ans)
+			# print(self.ans)
 		elif middle_layer == 3:
 			middle_layer_fun = self.mc2
 			self.ans.extend(['mc2',up_fun_name,'mc2',up_fun_name,up_fun_name,'mc2',up_fun_name,'mc2'])
-			print(self.ans)
+			# print(self.ans)
 		middle_layer_fun()
 		up_fun()
 		middle_layer_fun()

@@ -26,7 +26,7 @@ def rgb2hsv(r,g,b):
 		h+=360
 	return h,s*100,(v/255.0)*100
 def resolve_color(h,s,v):
-	if s <= 10 and v >= 80:
+	if s <= 25 and v >= 75:
 		return 'w'
 	if s >= 10 and v >= 15:
 		return hue_to_color_approx(h)
