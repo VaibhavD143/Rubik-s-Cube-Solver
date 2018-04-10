@@ -20,13 +20,13 @@ class cube_solver():
 	def ans_shortner(self,ans):
 		final_ans = []
 		if len(ans) > 0:
-			current = self.get_current(ans[0])
+			current = self.get_base(ans[0])
 			count = 0
 			for move in ans:
-				if self.get_current(move) == current:
-					if move[len(move)-1] == '1':
+				if self.get_base(move) == current:
+					if self.get_count(move,current) == 1:
 						count+=3
-					elif move[len(move)-1] == '2':
+					elif self.get_count(move,current) == 2:
 						count+=2
 					else:
 						count+=1
@@ -38,11 +38,11 @@ class cube_solver():
 						final_ans.append(current+'2')
 					elif count == 3:
 						final_ans.append(current+'1')
-					current = self.get_current(move)
+					current = self.get_base(move)
 					count = 0
-					if move[len(move)-1] == 1:
+					if self.get_count(move,current) == 1:
 						count+=3
-					elif move[len(move)-1] == 2:
+					elif self.get_count(move,current) == 2:
 						count+=2
 					else:
 						count+=1
@@ -107,8 +107,14 @@ class cube_solver():
 
 		return sol
 
-	def get_current(self,move):
-		if move[0] == 'm':
-			return move[0]+move[1]
+	def get_base(self,move):
+	if move[0] == 'm':
+		return move[0]+move[1]
+	else:
+		return move[0]
+
+	def get_count(self,move,base):
+		if len(move) == len(base):
+			return 0
 		else:
-			return move[0]
+			return int(move[len(base)])
