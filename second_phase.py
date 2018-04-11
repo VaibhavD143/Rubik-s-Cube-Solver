@@ -1,7 +1,6 @@
 from notation import *
 
 class second_phase(mycube):
-	ans = []
 	#constructor gets current state (i.e, first stage solved) and initializes the super class (i.e the generic cube)
 	def __init__(self,c_state):
 		self.up = c_state.up
@@ -10,6 +9,7 @@ class second_phase(mycube):
 		self.front = c_state.front
 		self.right = c_state.right
 		self.left = c_state.left
+		self.ans = []
 	#this is basically a controller method which calls other methods eho actually solve the cube and returns the ans for THIS STAGE
 	def solve(self):
 		self.set_conflicting_corners()
@@ -308,7 +308,7 @@ class second_phase(mycube):
 				self.ans.append('d')
 	#state is how many corners mismatch (used in set_adjacent_corners_same)
 	def get_layer_state(self):
-		ans = [0,0]
+		# ans = [0,0]
 		up_count = down_count = 0
 		mapping = {0:0,1:1,4:2}
 		faces = [self.front,self.right,self.back,self.left]

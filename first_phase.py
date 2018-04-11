@@ -9,8 +9,8 @@ class first_phase(mycube):
 		self.front = c_state.front
 		self.right = c_state.right
 		self.left = c_state.left
+		self.ans = []#answer variable containing all the steps
 	
-	ans = []#answer variable containing all the steps
 	front_edges = [1,2,3,4] #edges those are in front face 	
 	#To convert two bad edges to four bad edges 
 	def from_two_bad_edges_to_four(self,bad_edges):
@@ -54,6 +54,7 @@ class first_phase(mycube):
 			self.ans.append('f')
 
 	def move_bad_edges_to_front(self,edge_no):
+		# print('in move_bad_edges_to_front',(edge_no,self.ans))
 		if edge_no == 1:
 			moves = {'u':self.u,'d':self.d,'r':self.r,'l':self.l,'f':self.f,'b':self.b}
 			move_name = {'u':'u','d':'d','r':'r','l':'l','f':'f','b':'b'}
@@ -74,7 +75,7 @@ class first_phase(mycube):
 		for i in range(4):
 			if self.is_bad_edge(edge_no):
 				try:
-					ans.extend([move_name['u']]*(i))
+					self.ans.extend([move_name['u']]*(i))
 				except:
 					pass
 				return 'first'
@@ -130,13 +131,13 @@ class first_phase(mycube):
 	
 	#solve bad edges of the cube
 	def solve_bad_edges(self):
-		t=3
+		# t=1
 		while True:
 			bad_edges = self.get_bad_edges()
 			len_bad_edges = len(bad_edges)
 			if  len_bad_edges % 2:
 				print(bad_edges)
-				print("Invalid State")
+				print("Invalid State: Impossible number of bad edges")
 				return False
 			elif len_bad_edges == 0:
 				return True

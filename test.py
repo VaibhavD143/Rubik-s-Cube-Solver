@@ -3,22 +3,22 @@ from cube_solver import *
 from solution import solution
 from webcam import *
 
-sc = scan_cube()
-colors = sc.get_rgb_of_all_faces()
-faces = ['f','b','l','r','u','d']
-input = {}
+# sc = scan_cube()
+# colors = sc.get_rgb_of_all_faces()
+# faces = ['f','b','l','r','u','d']
+# input = {}
 
-for face in faces:
-	input[face] = list(colors[face].values())
+# for face in faces:
+# 	input[face] = list(colors[face].values())
 
 
-# input = {'f':['w','r','r','g','b','o','r','r','b'],
-# 		 'b':['g','y','y','r','g','b','b','r','y'],
-# 		 'u':['o','g','w','o','r','b','g','b','w'],
-# 		 'd':['y','g','o','y','o','g','o','y','y'],
-# 		 'l':['g','y','r','o','y','o','b','b','g'],
-# 		 'r':['b','w','o','w','w','w','w','w','r']
-# 		}
+input = {'f':['y','b','y','w','b','o','o','g','y'],
+		 'b':['g','g','w','y','g','b','b','o','g'],
+		 'u':['o','w','r','w','r','r','r','r','o'],
+		 'd':['y','y','b','y','o','g','w','g','r'],
+		 'l':['b','r','g','w','y','o','o','o','b'],
+		 'r':['g','y','w','b','w','b','r','r','w']
+		}
 solver = cube_solver(input)
 debug = True
 ans = solver.solve(debug)

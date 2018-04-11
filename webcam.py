@@ -4,6 +4,7 @@ import numpy as np
 import cv2
 from color_resolver import *
 import time
+import sys
 
 class scan_cube(object):
 		
@@ -93,8 +94,8 @@ class scan_cube(object):
 				rimg = RubiksImage(frame_copy,index,name,debug)	#initialize object of scanner
 				try :
 					rimg.analyze_file(frame_copy)	#scan caputred image
-				except e:
-					print("Exception occored :",e)	#if any exception occured in scanning proccess
+				except:
+					print("Exception occored :",sys.exc_info()[0])	#if any exception occured in scanning proccess
 					flag = 1
 					continue
 				print(len(rimg.data))
@@ -191,7 +192,8 @@ class scan_cube(object):
 		input_file = open("input_json",'w+')
 		for face in self.faces:
 			rgb[face] = self.capture_frame(face)
-			input_file.write(rgb[face],'\n')
+			# print(rgb[face])
+			input_file.write(face+' : '+' '.join(rgb[face].values())+'\n')
 		return rgb
 
 if __name__ == '__main__':

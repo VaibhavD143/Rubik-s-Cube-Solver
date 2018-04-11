@@ -71,6 +71,8 @@ class cube_solver():
 		cube = mycube(self.input)
 
 		f =first_phase(cube)
+		print("Initial state:")
+		f.print_cube_with_faces()
 		ans.extend(f.solve())
 		if debug:
 			print('------------------------------after 1st phase--------------------------------------')
@@ -108,10 +110,10 @@ class cube_solver():
 		return sol
 
 	def get_base(self,move):
-	if move[0] == 'm':
-		return move[0]+move[1]
-	else:
-		return move[0]
+		if move[0] == 'm':
+			return move[0]+move[1]
+		else:
+			return move[0]
 
 	def get_count(self,move,base):
 		if len(move) == len(base):
