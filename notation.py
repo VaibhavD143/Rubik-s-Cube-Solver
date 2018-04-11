@@ -237,16 +237,7 @@ class mycube():
 		tmp1 = [self.down[3],self.down[4],self.down[5]]
 		flag = True
 		for i in range(0,4):
-			if flag and i<2:
-				tmp = [tmp1[0],tmp1[1],tmp1[2]]
-				tmp1[0] = faces[i][1]
-				tmp1[1] = faces[i][4]
-				tmp1[2] = faces[i][7]
-				faces[i][1] = tmp[0]
-				faces[i][4] = tmp[1]
-				faces[i][7] = tmp[2]
-				flag = False
-			elif flag and i>=2:
+			if flag :
 				tmp = [tmp1[0],tmp1[1],tmp1[2]]
 				tmp1[0] = faces[i][1]
 				tmp1[1] = faces[i][4]
@@ -281,16 +272,7 @@ class mycube():
 				faces[i][4] = tmp[1]
 				faces[i][7] = tmp[2]
 				flag = False
-			elif (not flag) and i>=2:
-				tmp = [tmp1[0],tmp1[1],tmp1[2]]
-				tmp1[0] = faces[i][1]
-				tmp1[1] = faces[i][4]
-				tmp1[2] = faces[i][7]
-				faces[i][3] = tmp[0]
-				faces[i][4] = tmp[1]
-				faces[i][5] = tmp[2]
-				flag = False
-			elif (not flag) and i<2:
+			elif (not flag):#1
 				tmp = [tmp1[0],tmp1[1],tmp1[2]]
 				tmp1[0] = faces[i][3]
 				tmp1[1] = faces[i][4]

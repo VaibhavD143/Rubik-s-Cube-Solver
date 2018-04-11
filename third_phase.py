@@ -20,26 +20,30 @@ class third_phase(mycube):
 		#print(self.ans)
 		#print('----------------------------------------- All edge set-----------------------------------------------------')
 		#3B start
+		self.print_cube_with_faces()
+		print()
+		print()
 		checking_functions = [self.check_algo1,self.check_algo2,self.check_algo3,self.set_2_in_different_circuits]
 		# checking_functions = [self.check_algo1,self.check_algo3,self.check_algo4,self.check_algo5,self.check_algo6]
 		#j = 0		this was for debugging purpose if while loop goes in infinite
-		while True:
+		while True :
 			if self.is_solved():
 				break
 			else:
-				i = 1
+				#i = 1
 				for fun in checking_functions:
 					#print("------------------position--------------------------")
 					#self.print_cube_with_faces()
 					if fun() == True:
-						#print("hoho")
+					#	print("hoho")
 						#self.print_cube_with_faces()
-						#print("haha")
+					#	print(i)
+					#	print("haha")
 						break
-					i+=1
+					#i+=1
 				#break
-		#	self.print_cube_with_faces()
-		#	j+=1
+			#self.print_cube_with_faces()
+			#j+=1
 		
 		return(self.ans)
 
@@ -156,6 +160,7 @@ class third_phase(mycube):
 				right_function_name = function_name[right_function]
 				self.algo1(up_function,right_function,up_function_name,right_function_name)
 				return_value = True
+				return return_value
 				
 		flag = False
 		if 1 in bad_edges[4] and 3 in bad_edges[4]:
