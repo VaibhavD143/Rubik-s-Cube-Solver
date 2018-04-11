@@ -91,103 +91,98 @@ class mycube():
 			for j in range(3):
 				print(i[j*3],i[j*3+1],i[j*3+2])
 
-
+	#move front face(blue) clockwise
 	def f(self):
 		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
 
+	#move front face(blue) anti-clockwise
 	def f1(self):
 		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
 		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
 		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
 
+	#move front(blue) face 2 times
 	def f2(self):
 		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
 		self.front,self.up,self.right,self.down,self.left=self.rotate(self.front,self.up,self.right,self.down,self.left,'f')
 
+	#move up(red) face clockwise
 	def u(self):
 		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
 
+	#move up(red) face anti-clockwise
 	def u1(self):
 		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
 		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
 		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
 
+	#move up(red) face 2-times
 	def u2(self):
 		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
 		self.up,self.back,self.right,self.front,self.left=self.rotate(self.up,self.back,self.right,self.front,self.left,'u')
 
+	#move back(green) face clockwise
 	def b(self):
 		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
 
+	#move back(green) face anti-clockwise
 	def b1(self):
 		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
 		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
 		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
 
+	#move back(green) face 2-times
 	def b2(self):
 		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
 		self.back,self.up,self.left,self.down,self.right=self.rotate(self.back,self.up,self.left,self.down,self.right,'b')
 
+	#move down(orange) face clockwise
 	def d(self):
 		self.down,self.front,self.right,self.back,self.left=self.rotate(self.down,self.front,self.right,self.back,self.left,'d')
 
+	#move down(orange) face anti-clockwise
 	def d1(self):
 		self.down,self.front,self.right,self.back,self.left=self.rotate(self.down,self.front,self.right,self.back,self.left,'d')
 		self.down,self.front,self.right,self.back,self.left=self.rotate(self.down,self.front,self.right,self.back,self.left,'d')
 		self.down,self.front,self.right,self.back,self.left=self.rotate(self.down,self.front,self.right,self.back,self.left,'d')
 
+	#move down(orange) face 2-times
 	def d2(self):
 		self.down,self.front,self.right,self.back,self.left=self.rotate(self.down,self.front,self.right,self.back,self.left,'d')
 		self.down,self.front,self.right,self.back,self.left=self.rotate(self.down,self.front,self.right,self.back,self.left,'d')
 
+	#move left(yellow) face clockwise
 	def l(self):
 		self.left,self.up,self.front,self.down,self.back=self.rotate(self.left,self.up,self.front,self.down,self.back,'l')
 
+	#move left(yellow) face anti-clockwise
 	def l1(self):
 		self.left,self.up,self.front,self.down,self.back=self.rotate(self.left,self.up,self.front,self.down,self.back,'l')
 		self.left,self.up,self.front,self.down,self.back=self.rotate(self.left,self.up,self.front,self.down,self.back,'l')
 		self.left,self.up,self.front,self.down,self.back=self.rotate(self.left,self.up,self.front,self.down,self.back,'l')
 
+	#move left(yellow) face 2-times
 	def l2(self):
 		self.left,self.up,self.front,self.down,self.back=self.rotate(self.left,self.up,self.front,self.down,self.back,'l')
 		self.left,self.up,self.front,self.down,self.back=self.rotate(self.left,self.up,self.front,self.down,self.back,'l')
 
+	#move right(white) face clockwise
 	def r(self):
 		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 
+	#move right(white) face anti-clockwise
 	def r1(self):
 		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 
+	#move right(white) face 2-times
 	def r2(self):
 		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 		self.right,self.up,self.back,self.down,self.front=self.rotate(self.right,self.up,self.back,self.down,self.front,'r')
 
-	def mf1(self):
-		faces = [self.front,self.down,self.back,self.up]
-		tmp147 = [self.up[1],self.up[4],self.up[7]]
-		for i in range(0,4):
-			if i<2:
-				tmp = [tmp147[0],tmp147[1],tmp147[2]]
-				tmp147[0] = faces[i][1]
-				tmp147[1] = faces[i][4]
-				tmp147[2] = faces[i][7]
-				faces[i][1] = tmp[0]
-				faces[i][4] = tmp[1]
-				faces[i][7] = tmp[2]
-			else:
-				tmp = [tmp147[0],tmp147[1],tmp147[2]]
-				tmp147[0] = faces[i][1]
-				tmp147[1] = faces[i][4]
-				tmp147[2] = faces[i][7]
-				faces[i][7] = tmp[0]
-				faces[i][4] = tmp[1]
-				faces[i][1] = tmp[2]
-	def mf2(self):
-		self.mf()
-		self.mf()
 	
+	#move center column of front side clockwise wise with respect to right side
 	def mf(self):
 		faces = [self.front,self.up,self.back,self.down]
 		tmp147 = [self.down[1],self.down[4],self.down[7]]
@@ -208,7 +203,35 @@ class mycube():
 				faces[i][7] = tmp[0]
 				faces[i][4] = tmp[1]
 				faces[i][1] = tmp[2]
+	
+	#move center column of front side  anti-clockwise wise with respect to right side
+	def mf1(self):
+		faces = [self.front,self.down,self.back,self.up]
+		tmp147 = [self.up[1],self.up[4],self.up[7]]
+		for i in range(0,4):
+			if i<2:
+				tmp = [tmp147[0],tmp147[1],tmp147[2]]
+				tmp147[0] = faces[i][1]
+				tmp147[1] = faces[i][4]
+				tmp147[2] = faces[i][7]
+				faces[i][1] = tmp[0]
+				faces[i][4] = tmp[1]
+				faces[i][7] = tmp[2]
+			else:
+				tmp = [tmp147[0],tmp147[1],tmp147[2]]
+				tmp147[0] = faces[i][1]
+				tmp147[1] = faces[i][4]
+				tmp147[2] = faces[i][7]
+				faces[i][7] = tmp[0]
+				faces[i][4] = tmp[1]
+				faces[i][1] = tmp[2]
+	
+	#move center column of front side  2-times with respect to right side
+	def mf2(self):
+		self.mf()
+		self.mf()
 
+	#move center column of right side clockwise wise with respect to back side
 	def mr(self):
 		faces = [self.right,self.up,self.left,self.down]
 		tmp1 = [self.down[3],self.down[4],self.down[5]]
@@ -241,10 +264,9 @@ class mycube():
 				faces[i][4] = tmp[1]
 				faces[i][5] = tmp[2]
 				flag = True
-	def mr2(self):
-		self.mr()
-		self.mr()
 
+
+	#move center column of right side anti-clockwise wise with respect to back side
 	def mr1(self):
 		faces = [self.right,self.down,self.left,self.up]
 		tmp1 = [self.up[3],self.up[4],self.up[5]]
@@ -277,6 +299,14 @@ class mycube():
 				faces[i][4] = tmp[1]
 				faces[i][3] = tmp[2]
 				flag = True
+
+	#move center column of right side 2-times with respect to back side
+	def mr2(self):
+		self.mr()
+		self.mr()
+
+		
+	#move center row of front side clockwise wise with respect to down side
 	def mc(self):
 		faces = [self.front,self.right,self.back,self.left]
 		tmp345 = [self.left[3],self.left[4],self.left[5]]
@@ -289,10 +319,8 @@ class mycube():
 			faces[i][4] = tmp[1]
 			faces[i][5] = tmp[2]
 
-	def mc2(self):
-		self.mc()
-		self.mc()
 
+	#move center row of front side clockwise wise with respect to down side
 	def mc1(self):
 		faces = [self.front,self.left,self.back,self.right]
 		tmp345 = [self.right[3],self.right[4],self.right[5]]
@@ -305,6 +333,10 @@ class mycube():
 			faces[i][4] = tmp[1]
 			faces[i][5] = tmp[2]
 
+	#move center row of front side 2-times with respect to down side
+	def mc2(self):
+		self.mc()
+		self.mc()
 
 	#it 'll give current colors of all the corners with respect to X-axis,Y-axis,Z-axis
 	def get_corner(self,no):
@@ -392,12 +424,15 @@ class mycube():
 			if self.is_bad_edge(i):
 				bad_edges.append(i)
 		return bad_edges
-
+	
+	#check up&down side wether it only contains 'o' or 'r'
 	def check_ro_corners(self):
 		for i in range(0,9,2):
 			if self.up[i] not in ['r','o'] or self.down[i] not in ['r','o']:
 				return False
 		return True
+
+	#returns number of corner of up&down if it doesn't contain 'r' OR 'o'
 	def give_unset_corners(self):
 		unset = {'up':[],'down':[]}
 		for i in range(0,9,2):
@@ -407,8 +442,8 @@ class mycube():
 				unset['down'].append(i)
 		return unset
 
+	#is cube solved?
 	def is_solved(self):
-
 		faces = [self.front,self.back,self.left,self.right,self.up,self.down]
 
 		for face in faces:
