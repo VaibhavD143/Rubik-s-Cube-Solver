@@ -12,13 +12,14 @@ from webcam import *
 # 	input[face] = list(colors[face].values())
 
 
-input = {'f':['y','b','y','w','b','o','o','g','y'],
-		 'b':['g','g','w','y','g','b','b','o','g'],
-		 'u':['o','w','r','w','r','r','r','r','o'],
-		 'd':['y','y','b','y','o','g','w','g','r'],
-		 'l':['b','r','g','w','y','o','o','o','b'],
-		 'r':['g','y','w','b','w','b','r','r','w']
+input = {'f':['b','r','g','b','b','g','w','r','w'],
+		 'b':['b','o','g','b','g','g','y','y','y'],
+		 'u':['o','b','r','o','r','w','o','w','r'],
+		 'd':['r','y','r','r','o','r','o','o','o'],
+		 'l':['w','g','w','w','y','w','b','g','g'],
+		 'r':['y','o','y','y','w','y','b','b','g']
 		}
+
 solver = cube_solver(input)
 debug = True
 ans = solver.solve(debug)

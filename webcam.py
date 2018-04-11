@@ -193,7 +193,7 @@ class scan_cube(object):
 		for face in self.faces:
 			rgb[face] = self.capture_frame(face)
 			# print(rgb[face])
-			input_file.write(face+' : '+' '.join(rgb[face].values())+'\n')
+			input_file.write(face+' : '+'\',\' '.join(rgb[face].values())+'\n')
 		return rgb
 
 if __name__ == '__main__':
