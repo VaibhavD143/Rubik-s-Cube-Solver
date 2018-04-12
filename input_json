@@ -1,6 +1,6 @@
-f : b r g b b g w r w
-b : b o g b g g y y y
-l : w g w w y w b g g
-r : y o y y w y b b g
-u : o b r o r w o w r
-d : r y r r o r o o o
+f : b',' g',' b',' g',' b',' g',' b',' g',' b
+b : g',' b',' g',' b',' g',' b',' g',' b',' g
+l : y',' w',' y',' y',' y',' w',' y',' w',' y
+r : w',' y',' w',' y',' w',' w',' w',' y',' w
+u : r',' r',' r',' o',' r',' o',' r',' o',' r
+d : o',' r',' o',' r',' o',' r',' o',' o',' o

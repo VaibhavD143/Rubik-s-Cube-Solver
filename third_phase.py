@@ -20,9 +20,9 @@ class third_phase(mycube):
 		#print(self.ans)
 		#print('----------------------------------------- All edge set-----------------------------------------------------')
 		#3B start
-		self.print_cube_with_faces()
-		print()
-		print()
+		# self.print_cube_with_faces()
+		# print()
+		# print()
 		checking_functions = [self.check_algo1,self.check_algo2,self.check_algo3,self.set_2_in_different_circuits]
 		# checking_functions = [self.check_algo1,self.check_algo3,self.check_algo4,self.check_algo5,self.check_algo6]
 		#j = 0		this was for debugging purpose if while loop goes in infinite
