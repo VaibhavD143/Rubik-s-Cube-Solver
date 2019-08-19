@@ -1285,12 +1285,6 @@ class RubiksImage(RubiksOpenCV):
     def analyze_file(self, image_file):
         self.reset()
 
-        # if not os.path.exists(filename):
-        #     print("ERROR: %s does not exists" % filename)
-        #     sys.exit(1)
-
-        # log.info("Analyze %s" % filename)
-        # self.image = cv2.imread(filename)
         self.image = image_file
         return self.analyze(webcam=False)
 

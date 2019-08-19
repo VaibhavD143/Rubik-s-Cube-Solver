@@ -15,35 +15,35 @@ class third_phase(mycube):
 		"""This will solve third phase in two step"""
 		#this is to solve corners of all edges
 		self.set_corners_acc_center()
-		#print('-------------------------------------------- All corner set -------------------------------------------------')
-		#self.print_cube_with_faces()
-		#print(self.ans)
-		#print('----------------------------------------- All edge set-----------------------------------------------------')
+		# print('-------------------------------------------- All corner set -------------------------------------------------')
+		# self.print_cube_with_faces()
+		# print(self.ans)
+		# print('----------------------------------------- All edge set-----------------------------------------------------')
 		#3B start
 		# self.print_cube_with_faces()
 		# print()
 		# print()
 		checking_functions = [self.check_algo1,self.check_algo2,self.check_algo3,self.set_2_in_different_circuits]
 		# checking_functions = [self.check_algo1,self.check_algo3,self.check_algo4,self.check_algo5,self.check_algo6]
-		#j = 0		this was for debugging purpose if while loop goes in infinite
+		# j = 0	#	this was for debugging purpose if while loop goes in infinite
 		while True :
 			if self.is_solved():
 				break
 			else:
-				#i = 1
+				i = 1
 				for fun in checking_functions:
 					#print("------------------position--------------------------")
 					#self.print_cube_with_faces()
 					if fun() == True:
-					#	print("hoho")
+						# print("hoho")
 						#self.print_cube_with_faces()
-					#	print(i)
-					#	print("haha")
+						# print(i)
+						# print("haha")
 						break
-					#i+=1
+					# i+=1
 				#break
-			#self.print_cube_with_faces()
-			#j+=1
+			# self.print_cube_with_faces()
+			# j+=1
 		
 		return(self.ans)
 
@@ -348,7 +348,7 @@ class third_phase(mycube):
 					self.algo2(edge_move[i][1],edge_move_name[i][1],edge_middle_move[i][1])
 					return_value = True
 			elif f[3] != f[4] and b[3] != b[4]:
-				if f[5] != f[4] and b[5] != f[4]:
+				if f[5] != f[4] and b[5] != b[4]:
 					self.algo2(edge_move[i][3],edge_move_name[i][3],edge_middle_move[i][3])
 					return_value = True
 			i+=1
